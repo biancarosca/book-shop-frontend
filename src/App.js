@@ -1,8 +1,11 @@
+import BrowsePage from './pages/BrowsePage';
+import GlobalStyles from './components/GlobalStyles';
 
 function App() {
   return (
     <div className="App">
-      <h1>This is my book shop!</h1>
+      <GlobalStyles />
+      <BrowsePage />
     </div>
   );
 }
