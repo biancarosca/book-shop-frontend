@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
 
     body{
         font-family: 'Poppins',sans-serif;
+        overflow: hidden;
     }
 `
 

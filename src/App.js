@@ -1,9 +1,5 @@
-// import BrowsePage from './pages/BrowsePage';
 import GlobalStyles from './components/GlobalStyles';
 import { Route,Switch } from 'react-router-dom';
-// import WishlistPage from './pages/WishlistPage';
-// import ShoppingCartPage from './pages/ShoppingCartPage';
-// import HistoryPage from './pages/HistoryPage';
 import BasePage from './pages/BasePage';
 
 function App() {

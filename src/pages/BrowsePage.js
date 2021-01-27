@@ -1,11 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { faSearch} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Book from '../components/Book';
+import { useDispatch, useSelector } from 'react-redux';
+import allActions from '../actions/index';
+
+
 
 const BrowsePage= () => {
+    const dispatch = useDispatch();
     
+    useEffect(() => {
+        dispatch(allActions.loadBooks());
+    },[dispatch]);
+
+    const allCategoriesObj = useSelector(store =>  store.booksReducer );
+    const allCategories = Object.keys(allCategoriesObj);
+
     return(
         <StyledWrapper>
             <StyledHeader>
@@ -18,14 +30,16 @@ const BrowsePage= () => {
                 </div>
             </StyledHeader>
             <StyledMain>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
-                <Book/>
+            {allCategories && (allCategories.map(category => 
+                allCategoriesObj[category].items.map(book => 
+                <Book 
+                language={book.volumeInfo.language}
+                title ={book.volumeInfo.title} 
+                image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
+                authors={book.volumeInfo.authors} 
+                 />
+                )
+            ))}
             </StyledMain>
         </StyledWrapper>
     );
@@ -33,8 +47,26 @@ const BrowsePage= () => {
 
 const StyledMain = styled.div`
     display: flex;
-    margin: 1rem;
+    /* margin: 1rem; */
     flex-wrap: wrap;
+    height: 80vh;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        width: 10px;
+        z-index: 1;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #2B2D30;
+        z-index :1;
+        }
+    ::-webkit-scrollbar-thumb {
+        background: #888; 
+        z-index:1;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #18D47C; 
+    }
 `
 
 const StyledWrapper = styled.div`
