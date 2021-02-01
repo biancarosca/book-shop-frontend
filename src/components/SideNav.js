@@ -54,6 +54,21 @@ const StyledNav = styled.nav`
     background-color:#2B2D30;
     border-top : 3px solid #212523;
     border-bottom : 3px solid #212523;
+    @media (max-width:950px){
+        width: 20vw;
+    }
+
+    @media (max-width:750px){
+        width: 25vw;
+    }
+
+    @media (max-width:650px){
+        width: 30vw;
+    }
+
+    @media (max-width:540px){
+        width: 60px;
+    }
     ul{
         margin-top: 1rem;
         width: 100%;
@@ -61,9 +76,13 @@ const StyledNav = styled.nav`
         flex-direction: column;
         list-style-type: none;
 
+
         span{
             position:relative;
             left: 1.5rem;
+            @media (max-width:540px){
+                left:1rem;
+                }
         }
     }
     li{
@@ -73,6 +92,9 @@ const StyledNav = styled.nav`
         color: #A1A6AA;
         display: flex;
         align-items: center;
+        @media (max-width:540px){
+                text-align:center;
+                }
         &:hover{
             background-color:#34373A;
             cursor: pointer;
@@ -81,6 +103,10 @@ const StyledNav = styled.nav`
             font-size: 1rem;
             position: relative;
             left: 2rem;
+
+            @media (max-width:540px){
+                font-size:0;
+                }
         }
 
     }

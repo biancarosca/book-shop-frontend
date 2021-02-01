@@ -24,13 +24,11 @@ const StyledAuthor = styled.h4`
 
 const StyledContainer = styled.div`
     margin: 1rem;
-    width: 15vw;
+    width: 250px;
     display:flex;
     flex-direction: column;
     align-items: center;
     flex: 1 0 auto;
-    /* padding: 1rem; */
-
 `
 
 const StyledTitle = styled.h3`
@@ -39,10 +37,9 @@ const StyledTitle = styled.h3`
 `
 
 const StyledImg = styled.img`
-    height: 300px;
-    width: 70%;
+    height: 400px;
+    width: 250px;
 
-    object-fit: cover;
 `
 
 export default Book;
