@@ -21,7 +21,7 @@ const BrowsePage= () => {
     return(
         <StyledWrapper>
             <StyledHeader>
-                <h1>Browse through our book collection</h1>
+                <h1>Browse our collection</h1>
                 <div className="search-wrapper">
                     <input type="text"></input>
                     <span>
@@ -86,9 +86,10 @@ const StyledHeader = styled.div`
     @media (max-width:700px){
         flex-direction: column;
         justify-content: center;
+        text-align: center;
     }
 
-    @media (max-height:700px){
+    @media (max-height:750px){
         height: 15vh;
     }
 
@@ -117,6 +118,7 @@ const StyledHeader = styled.div`
         padding: 0.5rem 2rem 0.5rem 0.5rem;
         @media (max-width:700px){
             margin-top: 0.4rem;
+            font-size: 0.9rem;
         }
         @media (max-height:500px){
         font-size: 0.8rem;
