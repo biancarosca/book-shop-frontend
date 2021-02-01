@@ -1,4 +1,6 @@
-const booksReducer = (
+
+
+export const booksReducer = (
 	state = {},
 	action
 ) => {
@@ -13,4 +15,17 @@ const booksReducer = (
 	}
 };
 
-export default booksReducer;
+export const renderedBooks = (state={},action) => {
+	switch (action.type) {
+		case "SEARCH_UPDATE":
+			return {
+				...state,
+				...action.payload,
+			}
+		case "RESTORE_SEARCH":
+			return {};
+		default:
+			return { ...state };
+		}
+}
+

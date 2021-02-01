@@ -6,7 +6,7 @@ import Book from '../components/Book';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
 
-
+//I need to create another reducer that will hold all the books, because at every search I need the whole collection
 
 const BrowsePage= () => {
     const dispatch = useDispatch();
@@ -16,38 +16,59 @@ const BrowsePage= () => {
     },[dispatch]);
 
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
+    const renderedBooksObj = useSelector(store => store.renderedBooks);
     const allCategories = Object.keys(allCategoriesObj);
+  
+    const searchHandler = (event) => {
+        console.log(event.target.value);
+        if(event.target.value === '')
+            {dispatch(allActions.restoreSearch());
+            console.log('here');}
+         else{
+        allCategories.forEach(category => 
+            {const result = Object.values(allCategoriesObj[category].items)
+              .filter(arr => arr.volumeInfo.title.toLowerCase().includes(event.target.value.toLowerCase()));
+            const foundObj = {...allCategoriesObj[category]}
+            foundObj.items = [...result]
+            foundObj.totalItems = result.length
+            dispatch(allActions.searchUpdate(foundObj,category));
+            }
+            
+            ); 
+          }
+    }
 
     return(
         <StyledWrapper>
             <StyledHeader>
                 <h1>Browse our collection</h1>
                 <div className="search-wrapper">
-                    <input type="text"></input>
+                    <input type="text" onChange={searchHandler}></input>
                     <span>
                         <StyledIcon icon={faSearch} />
                     </span>
                 </div>
             </StyledHeader>
             <StyledMain>
-            {allCategories && (allCategories.map(category => 
+            {allCategories.length ? allCategories.map(category => 
                 allCategoriesObj[category].items.map(book => 
                 <Book 
                 language={book.volumeInfo.language}
                 title ={book.volumeInfo.title} 
                 image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
-                authors={book.volumeInfo.authors} 
+                authors={book.volumeInfo.authors}
+                key={book.id} 
                  />
                 )
-            ))}
+            ) : <StyledSpinner><div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></StyledSpinner>}
             </StyledMain>
         </StyledWrapper>
     );
 }
 
+
 const StyledMain = styled.div`
     display: flex;
-    /* margin: 1rem; */
     flex-wrap: wrap;
     height: 80vh;
     overflow-y: scroll;
@@ -146,5 +167,90 @@ const StyledHeader = styled.div`
 const StyledIcon = styled(FontAwesomeIcon)`
     color: #bab8b8;
 `
+
+const StyledSpinner = styled.div`
+    height: 80vh;
+    width: 100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+.lds-spinner {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-spinner div {
+    transform-origin: 40px 40px;
+    animation: lds-spinner 1.2s linear infinite;
+  }
+  .lds-spinner div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 37px;
+    width: 6px;
+    height: 18px;
+    border-radius: 20%;
+    background: #18D47C;
+  }
+  .lds-spinner div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -1.1s;
+  }
+  .lds-spinner div:nth-child(2) {
+    transform: rotate(30deg);
+    animation-delay: -1s;
+  }
+  .lds-spinner div:nth-child(3) {
+    transform: rotate(60deg);
+    animation-delay: -0.9s;
+  }
+  .lds-spinner div:nth-child(4) {
+    transform: rotate(90deg);
+    animation-delay: -0.8s;
+  }
+  .lds-spinner div:nth-child(5) {
+    transform: rotate(120deg);
+    animation-delay: -0.7s;
+  }
+  .lds-spinner div:nth-child(6) {
+    transform: rotate(150deg);
+    animation-delay: -0.6s;
+  }
+  .lds-spinner div:nth-child(7) {
+    transform: rotate(180deg);
+    animation-delay: -0.5s;
+  }
+  .lds-spinner div:nth-child(8) {
+    transform: rotate(210deg);
+    animation-delay: -0.4s;
+  }
+  .lds-spinner div:nth-child(9) {
+    transform: rotate(240deg);
+    animation-delay: -0.3s;
+  }
+  .lds-spinner div:nth-child(10) {
+    transform: rotate(270deg);
+    animation-delay: -0.2s;
+  }
+  .lds-spinner div:nth-child(11) {
+    transform: rotate(300deg);
+    animation-delay: -0.1s;
+  }
+  .lds-spinner div:nth-child(12) {
+    transform: rotate(330deg);
+    animation-delay: 0s;
+  }
+  @keyframes lds-spinner {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+ ` 
 
 export default BrowsePage;
