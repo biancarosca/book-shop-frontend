@@ -6,7 +6,7 @@ import Book from '../components/Book';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
 
-//I need to create another reducer that will hold all the books, because at every search I need the whole collection
+
 
 const BrowsePage= () => {
     const dispatch = useDispatch();

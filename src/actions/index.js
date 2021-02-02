@@ -1,9 +1,11 @@
 import {searchUpdate,loadBooks,restoreSearch} from './booksAction';
+import {toggleActiveState} from './navAction';
 
 const allActions ={
     loadBooks,
     searchUpdate,
-    restoreSearch
+    restoreSearch,
+    toggleActiveState,
 };
 
 export default allActions;
