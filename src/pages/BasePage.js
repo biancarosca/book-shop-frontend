@@ -10,6 +10,7 @@ import styled from 'styled-components';
 
 
 const BasePage = ({page}) => {
+
     return(
         <>
             <Header />

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Rating from '@material-ui/lab/Rating';
+import { withStyles } from '@material-ui/core/styles';
 
 const Book = ({language,title,image,authors}) => {
   
@@ -10,12 +12,18 @@ const Book = ({language,title,image,authors}) => {
                 <StyledImg src={image} alt={title}></StyledImg>
                 <StyledTitle>{title.length > 20 ? `${title.slice(0,20)}...` : title}</StyledTitle>
                 {authors && (authors.length > 1 ? <StyledAuthor>{authors[0]}...</StyledAuthor> : <StyledAuthor>{authors[0]}</StyledAuthor> )}
-                <div>reviews</div>
+                <StyledRating name="read-only" value={4.5} precision={0.5} readOnly />
             </StyledContainer>
             }   
         </>
     );
 }
+
+const StyledRating = withStyles({
+    iconFilled: {
+      color: '#18D47C',
+    },
+  })(Rating);
 
 const StyledAuthor = styled.h4`
     font-size: 0.7rem;
