@@ -50,7 +50,16 @@ const BrowsePage= () => {
                 </div>
             </StyledHeader>
             <StyledMain>
-            {allCategories.length ? allCategories.map(category => 
+            {Object.keys(renderedBooksObj).length ? allCategories.map(category => 
+                renderedBooksObj[category].items.map(book => 
+                <Book 
+                language={book.volumeInfo.language}
+                title ={book.volumeInfo.title} 
+                image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
+                authors={book.volumeInfo.authors}
+                key={book.id} 
+                 />
+                )) : allCategories.length ?  allCategories.map(category => 
                 allCategoriesObj[category].items.map(book => 
                 <Book 
                 language={book.volumeInfo.language}
@@ -59,8 +68,7 @@ const BrowsePage= () => {
                 authors={book.volumeInfo.authors}
                 key={book.id} 
                  />
-                )
-            ) : <StyledSpinner><div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></StyledSpinner>}
+                )) : <StyledSpinner><div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></StyledSpinner>}
             </StyledMain>
         </StyledWrapper>
     );
