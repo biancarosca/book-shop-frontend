@@ -5,6 +5,9 @@ import {  useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import MenuItem from './MenuItem';
 
+
+//fix issue : when I resize window, and I toggle the sidenav it looks weird
+
 const SideNav = () => {
     const navDisplay = useSelector(store => store.navToggle);
     const variants = {

@@ -8,9 +8,14 @@ import ShoppingCartPage from './ShoppingCartPage';
 import HistoryPage from './HistoryPage';
 import styled from 'styled-components';
 import { useLocation} from 'react-router-dom'; 
+import { useDispatch,useSelector } from 'react-redux';
+import allActions from '../actions/index';
+import Book from '../components/Book';
 
 
 const BasePage = ({page}) => {
+    const dispatch = useDispatch();
+    const activeBook = useSelector(store => store.activeBook);
     const location = useLocation();
     const changed = useRef(true);
 
@@ -18,16 +23,10 @@ const BasePage = ({page}) => {
         changed.current = true;
     },[location])
 
-
+    const toggleBackdrop = () => {
+        dispatch(allActions.bookActive(''));
+    }
     const variants = {
-        // close0:{
-        //     // x:"0%",
-        //     display: "block"
-        // },
-        // close:{
-        //     // x: "-15%",
-        //     // position: 'absolute'
-        // },
         open0:{
             x:"-15%",
         },
@@ -41,6 +40,13 @@ const BasePage = ({page}) => {
     return(
         <>
             <Header />
+            <StyledBackdrop style={activeBook.activeId ? {display:'flex'} : {display:'none'}} onClick= {toggleBackdrop}>
+                <StyledWhiteBox></StyledWhiteBox>
+            </StyledBackdrop>
+
+            <BookContainer style={activeBook.activeId ? {display:'flex'} : {display:'none'}}><p>heey</p></BookContainer>
+            
+
             <StyledWrapper>
                 <SideNav />
                 {(page === 'browse') && <BrowsePage locationChanged = {changed.current} variants={variants}/>}
@@ -52,6 +58,36 @@ const BasePage = ({page}) => {
         </>
     );
 }
+
+const StyledBackdrop = styled.div`
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    left:0;
+    top:0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+const BookContainer = styled.div`
+    width: 60vw;
+    height: 60vh;
+    background-color: white;
+    position:absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 2rem;
+    z-index:2;
+`
+
+const StyledWhiteBox = styled(BookContainer)`
+    z-index: 1;
+
+`
 
 const StyledWrapper = styled.div`
     height: 90vh;

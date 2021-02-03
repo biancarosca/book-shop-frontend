@@ -27,3 +27,8 @@ export const restoreSearch = () => {
     return action;
 }
 
+export const bookActive = (id) => {
+    let action = {type: "ACTIVATE_BOOK",payload: {'activeId': id}}
+    return action;
+}
+

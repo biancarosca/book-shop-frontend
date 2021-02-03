@@ -64,6 +64,7 @@ const BrowsePage= ({locationChanged,variants}) => {
                 title ={book.volumeInfo.title} 
                 image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
                 authors={book.volumeInfo.authors}
+                id={book.id}
                 key={book.id} 
                  />
                 )) : allCategories.length ?  allCategories.map(category => 
@@ -73,6 +74,7 @@ const BrowsePage= ({locationChanged,variants}) => {
                 title ={book.volumeInfo.title} 
                 image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
                 authors={book.volumeInfo.authors}
+                id={book.id}
                 key={book.id} 
                  />
                 )) : <StyledSpinner><div className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></StyledSpinner>}

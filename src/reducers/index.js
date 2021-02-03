@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {booksReducer,renderedBooks} from './booksReducer';
+import {booksReducer,renderedBooks,activeBook} from './booksReducer';
 import {navItemsState,navToggle} from './navReducer';
 
 const rootReducer = combineReducers({
@@ -7,6 +7,7 @@ const rootReducer = combineReducers({
     renderedBooks,
     navItemsState,
     navToggle,
+    activeBook,
 });
 
 export default rootReducer;

@@ -29,3 +29,12 @@ export const renderedBooks = (state={},action) => {
 		}
 }
 
+export const activeBook = (state={'activeId': '' },action) => {
+	switch(action.type){
+		case "ACTIVATE_BOOK":
+			return action.payload;
+		default:
+			return {...state}
+	}
+}
+
