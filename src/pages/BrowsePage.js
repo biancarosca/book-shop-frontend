@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 
 
-const BrowsePage= ({variants}) => {
+const BrowsePage= ({locationChanged,variants}) => {
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -22,10 +22,10 @@ const BrowsePage= ({variants}) => {
     const navDisplay = useSelector(store => store.navToggle);
   
     const searchHandler = (event) => {
-        console.log(event.target.value);
+        
         if(event.target.value === '')
             {dispatch(allActions.restoreSearch());
-            console.log('here');}
+            }
          else{
         allCategories.forEach(category => 
             {const result = Object.values(allCategoriesObj[category].items)
@@ -42,8 +42,8 @@ const BrowsePage= ({variants}) => {
 
     return(
         <StyledWrapper  
-        initial={navDisplay.display ? "open0" : "close0"}
-        animate={navDisplay.display ? "open" : "close" }
+        initial={navDisplay.display ? (!locationChanged  ? "open0" : ''): ""}
+        animate={navDisplay.display ? (!locationChanged  ? "open" : ''): "" }
         transition={{ type:"tween",duration: 0.5 }}
         variants = {variants}
         >

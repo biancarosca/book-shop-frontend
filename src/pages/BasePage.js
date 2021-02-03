@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import SideNav from '../components/SideNav';
 import Footer from '../components/Footer';
@@ -7,17 +7,27 @@ import WishlistPage from './WishlistPage';
 import ShoppingCartPage from './ShoppingCartPage';
 import HistoryPage from './HistoryPage';
 import styled from 'styled-components';
+import { useLocation} from 'react-router-dom'; 
 
 
 const BasePage = ({page}) => {
+    const location = useLocation();
+    const changed = useRef(true);
+
+    useEffect(() => {
+        changed.current = true;
+    },[location])
+
+
     const variants = {
-        close0:{
-            x:"0%",
-            display: "block"
-        },
-        close:{
-            x: "-15%",
-        },
+        // close0:{
+        //     // x:"0%",
+        //     display: "block"
+        // },
+        // close:{
+        //     // x: "-15%",
+        //     // position: 'absolute'
+        // },
         open0:{
             x:"-15%",
         },
@@ -33,10 +43,10 @@ const BasePage = ({page}) => {
             <Header />
             <StyledWrapper>
                 <SideNav />
-                {(page === 'browse') && <BrowsePage variants={variants}/>}
-                {(page === 'wishlist') && <WishlistPage variants={variants}/>}
-                {(page === 'cart') && <ShoppingCartPage variants={variants}/>}
-                {(page === 'history') && <HistoryPage variants={variants}/>}
+                {(page === 'browse') && <BrowsePage locationChanged = {changed.current} variants={variants}/>}
+                {(page === 'wishlist') && <WishlistPage locationChanged = {changed.current} variants={variants}/>}
+                {(page === 'cart') && <ShoppingCartPage locationChanged = {changed.current} variants={variants}/>}
+                {(page === 'history') && <HistoryPage locationChanged = {changed.current} variants={variants}/>}
             </StyledWrapper>
             <Footer />
         </>

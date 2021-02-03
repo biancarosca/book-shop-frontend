@@ -1,27 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeEurope, faStar, faShoppingCart, faHistory} from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import allActions from '../actions/index';
+import {  useSelector } from 'react-redux';
 import { motion } from "framer-motion";
-
+import MenuItem from './MenuItem';
 
 const SideNav = () => {
-    const dispatch = useDispatch();
-    const navState = useSelector(store => store.navItemsState);
     const navDisplay = useSelector(store => store.navToggle);
     const variants = {
         close0:{
-            x:"0%",
-            display: "block"
+            display: "block",
+            opacity: 1,
         },
         close:{
-            x: "-100%",
-            // transitionEnd: {
-            //     display: "none",
-            //   },
+            width: 0,
+            opacity: 0,
+        
         },
         open0:{
             x:"-100%",
@@ -39,46 +33,15 @@ const SideNav = () => {
             variants = {variants}
         >
             <ul>
-                <StyledLink to="/" onClick={() => {dispatch(allActions.toggleActiveState('browse'))}}>
-                    <li className={ navState['browse'] ? "active": ""}>
-                        <span><StyledIcon style={ navState['browse'] ? {color: "#18D47C" }: {}} icon={faGlobeEurope}/></span>
-                        <p>Browse</p>
-                    </li>
-                </StyledLink>
-                <StyledLink to="/wishlist" onClick={() => {dispatch(allActions.toggleActiveState('wishlist'))}}>
-                    <li className={ navState['wishlist'] ? "active": ""}>
-                        <span><StyledIcon style={ navState['wishlist'] ? {color: "#18D47C" }: {}} icon={faStar}/></span>
-                        <p>Wishlist</p>
-                    </li>
-                </StyledLink>
-                <StyledLink to="/cart" onClick={() => {dispatch(allActions.toggleActiveState('cart'))}}>
-                    <li className={ navState['cart'] ? "active": ""}>
-                        <span><StyledIcon style={ navState['cart'] ? {color: "#18D47C" }: {}} icon={faShoppingCart}/></span>
-                        <p>Cart</p>
-                    </li>
-                </StyledLink>
-                <StyledLink to="/history" onClick={() => {dispatch(allActions.toggleActiveState('history'))}}>
-                    <li className={ navState['history'] ? "active": ""}>
-                        <span><StyledIcon style={ navState['history'] ? {color: "#18D47C" }: {}} icon={faHistory}/></span>
-                        <p>History</p>
-                    </li>
-                </StyledLink>
+                <MenuItem page="browse" icon={faGlobeEurope}/>
+                <MenuItem page="wishlist" icon={faStar}/>
+                <MenuItem page="cart" icon={faShoppingCart}/>
+                <MenuItem page="history" icon={faHistory}/>
 
             </ul>
         </StyledNav>
     );
 }
-
-const StyledLink = styled(Link)`
-    text-decoration: none;
-    width: 100%;
-    
-`
-
-const StyledIcon = styled(FontAwesomeIcon)`
-    color: #6D7277;
-    font-size: 1.2rem;
-`
 
 const StyledNav = styled(motion.nav)`
     width: 15vw;

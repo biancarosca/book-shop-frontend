@@ -8,7 +8,7 @@ export const loadBooks = () => async dispatch => {
     let action = {type: 'LOAD_BOOKS', payload: {}}
     categories = orderAlphabetically(categories); 
     for(let category of categories) {
-    const results = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=+subject:${category}&maxResults=40&country=US`);
+    const results = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=+subject:${category}&maxResults=10&country=US`);
     action = {...action, ...action.payload}
     action.payload[`${category}`] = results.data;
     };
