@@ -10,16 +10,33 @@ import styled from 'styled-components';
 
 
 const BasePage = ({page}) => {
+    const variants = {
+        close0:{
+            x:"0%",
+            display: "block"
+        },
+        close:{
+            x: "-15%",
+        },
+        open0:{
+            x:"-15%",
+        },
+        open: {
+         x: "0%",
+        display:"block",
+        },
+      }
+
 
     return(
         <>
             <Header />
             <StyledWrapper>
                 <SideNav />
-                {(page === 'browse') && <BrowsePage />}
-                {(page === 'wishlist') && <WishlistPage />}
-                {(page === 'cart') && <ShoppingCartPage />}
-                {(page === 'history') && <HistoryPage />}
+                {(page === 'browse') && <BrowsePage variants={variants}/>}
+                {(page === 'wishlist') && <WishlistPage variants={variants}/>}
+                {(page === 'cart') && <ShoppingCartPage variants={variants}/>}
+                {(page === 'history') && <HistoryPage variants={variants}/>}
             </StyledWrapper>
             <Footer />
         </>

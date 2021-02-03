@@ -5,16 +5,39 @@ import { faGlobeEurope, faStar, faShoppingCart, faHistory} from '@fortawesome/fr
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
-// import { keyframes } from 'styled-components';
+import { motion } from "framer-motion";
 
 
 const SideNav = () => {
     const dispatch = useDispatch();
     const navState = useSelector(store => store.navItemsState);
     const navDisplay = useSelector(store => store.navToggle);
-    
+    const variants = {
+        close0:{
+            x:"0%",
+            display: "block"
+        },
+        close:{
+            x: "-100%",
+            // transitionEnd: {
+            //     display: "none",
+            //   },
+        },
+        open0:{
+            x:"-100%",
+        },
+        open: {
+         x: "0%",
+        display:"block"
+        },
+      }
     return(
-        <StyledNav style={ navDisplay.display ? {display: 'block'}: {display: 'none'}} >
+        <StyledNav 
+            initial={navDisplay.display ? "open0" : "close0"}
+            animate={navDisplay.display ? "open" : "close" }
+            transition={{ type:"tween",duration: 0.5 }}
+            variants = {variants}
+        >
             <ul>
                 <StyledLink to="/" onClick={() => {dispatch(allActions.toggleActiveState('browse'))}}>
                     <li className={ navState['browse'] ? "active": ""}>
@@ -46,17 +69,6 @@ const SideNav = () => {
     );
 }
 
-// const toggleAnimation = keyframes`
-//     0%{
-//         transform: translateX(${props => props.navToggle ? '-100%' : '0%'});
-//         transform: translateX(-100%);
-//     }
-//     100%{
-//         transform: translateX(${props => props.navToggle ? '0%' : '-100%' });
-//         transform: translateX(0%);
-//     }
-// `
-
 const StyledLink = styled(Link)`
     text-decoration: none;
     width: 100%;
@@ -68,15 +80,12 @@ const StyledIcon = styled(FontAwesomeIcon)`
     font-size: 1.2rem;
 `
 
-const StyledNav = styled.nav`
+const StyledNav = styled(motion.nav)`
     width: 15vw;
     min-height: 90vh;
     background-color:#2B2D30;
     border-top : 3px solid #212523;
     border-bottom : 3px solid #212523;
-    /* animation-name : ;
-    animation-duration: 0.5s;
-    animation-timing-function: ease-in-out; */
     @media (max-width:950px){
         width: 20vw;
     }

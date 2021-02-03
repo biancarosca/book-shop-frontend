@@ -5,10 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Book from '../components/Book';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
+import { motion } from "framer-motion";
 
 
 
-const BrowsePage= () => {
+const BrowsePage= ({variants}) => {
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -18,6 +19,7 @@ const BrowsePage= () => {
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
     const renderedBooksObj = useSelector(store => store.renderedBooks);
     const allCategories = Object.keys(allCategoriesObj);
+    const navDisplay = useSelector(store => store.navToggle);
   
     const searchHandler = (event) => {
         console.log(event.target.value);
@@ -39,7 +41,12 @@ const BrowsePage= () => {
     }
 
     return(
-        <StyledWrapper>
+        <StyledWrapper  
+        initial={navDisplay.display ? "open0" : "close0"}
+        animate={navDisplay.display ? "open" : "close" }
+        transition={{ type:"tween",duration: 0.5 }}
+        variants = {variants}
+        >
             <StyledHeader>
                 <h1>Browse our collection</h1>
                 <div className="search-wrapper">
@@ -99,7 +106,7 @@ const StyledMain = styled.div`
     }
 `
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(motion.div)`
     min-height: 90vh;
     width: 100%;
 `
