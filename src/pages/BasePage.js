@@ -25,6 +25,7 @@ const BasePage = ({page}) => {
 
     const toggleBackdrop = () => {
         dispatch(allActions.bookActive(''));
+        dispatch(allActions.bookEdition('paperback'));      //restore state to default after closing the modal
     }
     const variants = {
         open0:{

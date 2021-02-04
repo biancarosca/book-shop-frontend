@@ -34,3 +34,9 @@ export const bookActive = (book) => {
     return action;
 }
 
+export const bookEdition = (edition) => {
+    let state = {}
+    state[edition] = true;
+    let action = {type: "ACTIVATE_EDITION", payload: state}
+    return action;
+}

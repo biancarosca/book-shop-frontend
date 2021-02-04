@@ -1,15 +1,41 @@
 import React from "react";
 import Rating from "@material-ui/lab/Rating";
 import { withStyles } from "@material-ui/core/styles";
-// import {  useSelector } from 'react-redux';
 import styled from "styled-components";
-import audiobook from '../images/audiobook.png';
-import hardback from '../images/hardback.png';
-import paperback from '../images/paperback.png';
-import kindle from '../images/kindle.png';
-
+import audiobook from "../images/audiobook.png";
+import hardback from "../images/hardback.png";
+import paperback from "../images/paperback.png";
+import kindle from "../images/kindle.png";
+import { useSelector } from "react-redux";
+import EditionComponent from './EditionComponent';
 
 const BookDetail = ({ book }) => {
+	const activeEdition = useSelector((store) => store.activeEdition);
+	const choosePrice = (edition,paperbackPrice) => {
+        let price;
+		switch (edition) {
+			case "paperback": {
+				price = paperbackPrice;
+				break;
+			}
+			case "hardback": {
+				price = (paperbackPrice + 0.35*paperbackPrice).toFixed(2);
+				break;
+			}
+			case "kindle": {
+				price = (paperbackPrice - 0.30*paperbackPrice).toFixed(2);
+				break;
+            }
+            case "audiobook": {
+				price = (paperbackPrice*2).toFixed(2);
+				break;
+            }
+            default:
+                break;
+		}
+		return price;
+	};
+
 	return (
 		<StyContainer>
 			<StyledCover
@@ -21,8 +47,13 @@ const BookDetail = ({ book }) => {
 			<StyCompleteDetails>
 				<h1>{book.volumeInfo && book.volumeInfo.title}</h1>
 				{book.volumeInfo &&
-					book.volumeInfo.authors.map((author) => <h3>{author}</h3>)}
-                <h2 className="price">{book.saleInfo && book.saleInfo.listPrice ? book.saleInfo.listPrice.amount : 8.99}$</h2>
+					book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
+				<h2 className="price">
+					{book.saleInfo && book.saleInfo.listPrice
+						? choosePrice(Object.keys(activeEdition)[0],book.saleInfo.listPrice.amount)
+						: choosePrice(Object.keys(activeEdition)[0],8.99)}
+					$
+				</h2>
 				<StyledRevsBox>
 					<StyledRating
 						name="read-only"
@@ -47,7 +78,6 @@ const BookDetail = ({ book }) => {
 							{book.volumeInfo && book.volumeInfo.publishedDate}
 						</p>
 						<p>
-							ISBN:{" "}
 							{book.volumeInfo &&
 								book.volumeInfo.industryIdentifiers[0]
 									.identifier}
@@ -55,61 +85,24 @@ const BookDetail = ({ book }) => {
 						<p>{book.volumeInfo && book.volumeInfo.pageCount}</p>
 					</StyRightCol>
 				</StyDetailWrapper>
-                <StyIconsWrapper>
-                    <StyIconContainer>
-                        <StyledIcons src={paperback} alt='paperback' />
-                        <p>Paperback</p>
-                    </StyIconContainer>
-                    <StyIconContainer>
-                        <StyledIcons src={hardback} alt='hardback' />
-                        <p>Hardback</p>
-                    </StyIconContainer>
-                    <StyIconContainer>
-                        <StyledIcons src={kindle} alt='kindle' />
-                        <p>Kindle</p>
-                    </StyIconContainer>
-                    <StyIconContainer>
-                        <StyledIcons src={audiobook} alt='audiobook' />
-                        <p>Audiobook</p>
-                    </StyIconContainer>
-                </StyIconsWrapper>
-                
+				<StyIconsWrapper>
+                    <EditionComponent image={paperback} edition="paperback"/>
+                    <EditionComponent image={hardback} edition="hardback"/>
+                    <EditionComponent image={kindle} edition="kindle"/>
+                    <EditionComponent image={audiobook} edition="audiobook"/>
+				</StyIconsWrapper>
 			</StyCompleteDetails>
 		</StyContainer>
 	);
 };
 
 const StyIconsWrapper = styled.div`
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    margin-top: 1rem;
-` 
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	margin-top: 1rem;
+`;
 
-const StyIconContainer = styled.div`
-    width: 80px;
-    height: fit-content;
-    background-color: #b8ddcb;
-    margin-right: 1rem;
-    padding: 0.5rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    p{
-        color: black;
-        font-size: 0.8rem;
-    }
-    &:hover{
-        background-color: #8dd6b1;
-        cursor: pointer;
-    }
-`
-
-const StyledIcons = styled.img`
-    width: 50px;
-    height: auto;
-`
 
 const StyContainer = styled.div`
 	width: 100%;
@@ -137,9 +130,9 @@ const StyCompleteDetails = styled.div`
 		font-style: italic;
 	}
 	margin-right: 2rem;
-    .price{
-        margin-top: 1rem;
-    }
+	.price {
+		margin-top: 1rem;
+	}
 `;
 
 const StyLeftCol = styled.div`

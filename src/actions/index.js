@@ -1,4 +1,4 @@
-import {searchUpdate,loadBooks,restoreSearch,bookActive} from './booksAction';
+import {searchUpdate,loadBooks,restoreSearch,bookActive,bookEdition} from './booksAction';
 import {toggleActiveState,toggleSideNav} from './navAction';
 
 const allActions ={
@@ -8,6 +8,7 @@ const allActions ={
     toggleActiveState,
     toggleSideNav,
     bookActive,
+    bookEdition,
 };
 
 export default allActions;

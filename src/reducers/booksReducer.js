@@ -38,3 +38,15 @@ export const activeBook = (state='',action) => {
 	}
 }
 
+const actEdiState0 = {
+	'paperback' : true,
+}
+
+export const activeEdition = (state = actEdiState0 , action) => {
+	switch(action.type){
+		case "ACTIVATE_EDITION":
+			return action.payload;
+		default:
+			return {...state};
+	}
+}
