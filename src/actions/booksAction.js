@@ -14,18 +14,6 @@ export const loadBooks = () => async dispatch => {
     action = {...action, ...action.payload}
     action.payload[`${category}`] = results.data;
     };
-    arrOfBooks.forEach((book,idx,self) => {
-        const idxFound = self.findIndex((foundBook) => {
-            return foundBook.id === book.id 
-          });
-        
-          if(idx !== idxFound){
-            if(action.payload[`${book.volumeInfo.categories}`]){
-            const bookIndex = action.payload[`${book.volumeInfo.categories[0]}`].items.findIndex((storedBook) => storedBook.id === book.id);
-            action.payload[`${book.volumeInfo.categories[0]}`].items.splice(bookIndex,1); 
-            }
-          }  
-        });
     dispatch(action);
 }
 
@@ -41,8 +29,8 @@ export const restoreSearch = () => {
     return action;
 }
 
-export const bookActive = (id) => {
-    let action = {type: "ACTIVATE_BOOK",payload: {'activeId': id}}
+export const bookActive = (book) => {
+    let action = {type: "ACTIVATE_BOOK",payload: book}
     return action;
 }
 

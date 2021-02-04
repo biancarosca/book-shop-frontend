@@ -40,12 +40,12 @@ const BasePage = ({page}) => {
     return(
         <>
             <Header />
-            <StyledBackdrop style={activeBook.activeId ? {display:'flex'} : {display:'none'}} onClick= {toggleBackdrop}>
+            <StyledBackdrop style={Object.keys(activeBook).length ? {display:'flex'} : {display:'none'}} onClick= {toggleBackdrop}>
                 <StyledWhiteBox></StyledWhiteBox>
             </StyledBackdrop>
 
-            <BookContainer style={activeBook.activeId ? {display:'flex'} : {display:'none'}}>
-                <BookDetail />
+            <BookContainer style={Object.keys(activeBook).length ? {display:'flex'} : {display:'none'}}>
+                <BookDetail book={activeBook}/>
             </BookContainer>
             
 

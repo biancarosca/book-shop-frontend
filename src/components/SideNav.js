@@ -7,7 +7,7 @@ import MenuItem from './MenuItem';
 
 
 //fix issue : when I resize window, and I toggle the sidenav it looks weird
-//same book in different categories => rendered multiple times
+//same book in different categories => rendered multiple times ( I will create my own api because Google api just gives mixed categories)
 
 
 const SideNav = () => {
