@@ -46,7 +46,7 @@ const BasePage = ({page}) => {
             </StyledBackdrop>
 
             <BookContainer style={Object.keys(activeBook).length ? {display:'flex'} : {display:'none'}}>
-                <BookDetail book={activeBook}/>
+                <StyContainer><BookDetail book={activeBook}/></StyContainer>
             </BookContainer>
             
 
@@ -61,6 +61,29 @@ const BasePage = ({page}) => {
         </>
     );
 }
+
+const StyContainer = styled.div`
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    ::-webkit-scrollbar {
+        width: 10px;
+        z-index: 1;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #2B2D30;
+        z-index :1;
+        }
+    ::-webkit-scrollbar-thumb {
+        background: #18D47C; 
+        z-index:1;
+
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background:#16b769; 
+    }
+`
 
 const StyledBackdrop = styled.div`
     width: 100vw;
@@ -81,15 +104,16 @@ const BookContainer = styled.div`
     position:absolute;
     left:0;
     right:0;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top: 2rem;
+    top:0;
+    bottom:0;
+    margin: auto;
     z-index:2;
 `
 
 const StyledWhiteBox = styled(BookContainer)`
     z-index: 1;
-
+    overflow: hidden;
+    height: 60vh;
 `
 
 const StyledWrapper = styled.div`

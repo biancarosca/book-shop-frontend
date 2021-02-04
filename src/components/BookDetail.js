@@ -37,64 +37,97 @@ const BookDetail = ({ book }) => {
 	};
 
 	return (
-		<StyContainer>
-			<StyledCover
-				src={
-					book.volumeInfo && `${book.volumeInfo.imageLinks.thumbnail}`
-				}
-				alt={book.volumeInfo && `${book.volumeInfo.title}`}
-			/>
-			<StyCompleteDetails>
-				<h1>{book.volumeInfo && book.volumeInfo.title}</h1>
-				{book.volumeInfo &&
-					book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
-				<h2 className="price">
-					{book.saleInfo && book.saleInfo.listPrice
-						? choosePrice(Object.keys(activeEdition)[0],book.saleInfo.listPrice.amount)
-						: choosePrice(Object.keys(activeEdition)[0],8.99)}
-					$
-				</h2>
-				<StyledRevsBox>
-					<StyledRating
-						name="read-only"
-						value={4.3}
-						precision={0.5}
-						readOnly
-					/>
-					<span className="numRev">(14)</span>
-				</StyledRevsBox>
-				<StyDetailWrapper>
-					<StyLeftCol>
-						<p>Genre</p>
-						<p>Publisher</p>
-						<p>First publish</p>
-						<p>ISBN-13</p>
-						<p>Pages</p>
-					</StyLeftCol>
-					<StyRightCol>
-						<p>{book.volumeInfo && book.volumeInfo.categories}</p>
-						<p>{book.volumeInfo && book.volumeInfo.publisher}</p>
-						<p>
-							{book.volumeInfo && book.volumeInfo.publishedDate}
-						</p>
-						<p>
-							{book.volumeInfo &&
-								book.volumeInfo.industryIdentifiers[0]
-									.identifier}
-						</p>
-						<p>{book.volumeInfo && book.volumeInfo.pageCount}</p>
-					</StyRightCol>
-				</StyDetailWrapper>
-				<StyIconsWrapper>
-                    <EditionComponent image={paperback} edition="paperback"/>
-                    <EditionComponent image={hardback} edition="hardback"/>
-                    <EditionComponent image={kindle} edition="kindle"/>
-                    <EditionComponent image={audiobook} edition="audiobook"/>
-				</StyIconsWrapper>
-			</StyCompleteDetails>
-		</StyContainer>
-	);
+        <StyModalWrapper>
+            <StyContainer>
+                <StyledCover
+                    src={
+                        book.volumeInfo && `${book.volumeInfo.imageLinks.thumbnail}`
+                    }
+                    alt={book.volumeInfo && `${book.volumeInfo.title}`}
+                />
+                <StyCompleteDetails>
+                    <h1>{book.volumeInfo && book.volumeInfo.title}</h1>
+                    {book.volumeInfo &&
+                        book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
+                    <h2 className="price">
+                        {book.saleInfo && book.saleInfo.listPrice
+                            ? choosePrice(Object.keys(activeEdition)[0],book.saleInfo.listPrice.amount)
+                            : choosePrice(Object.keys(activeEdition)[0],8.99)}
+                        $
+                    </h2>
+                    <StyledRevsBox>
+                        <StyledRating
+                            name="read-only"
+                            value={4.3}
+                            precision={0.5}
+                            readOnly
+                        />
+                        <span className="numRev">(14)</span>
+                    </StyledRevsBox>
+                    <StyDetailWrapper>
+                        <StyLeftCol>
+                            <p>Genre</p>
+                            <p>Publisher</p>
+                            <p>First publish</p>
+                            <p>ISBN-13</p>
+                            <p>Pages</p>
+                        </StyLeftCol>
+                        <StyRightCol>
+                            <p>{book.volumeInfo && book.volumeInfo.categories}</p>
+                            <p>{book.volumeInfo && book.volumeInfo.publisher}</p>
+                            <p>
+                                {book.volumeInfo && book.volumeInfo.publishedDate}
+                            </p>
+                            <p>
+                                {book.volumeInfo &&
+                                    book.volumeInfo.industryIdentifiers[0]
+                                        .identifier}
+                            </p>
+                            <p>{book.volumeInfo && book.volumeInfo.pageCount}</p>
+                        </StyRightCol>
+                    </StyDetailWrapper>
+                    <StyIconsWrapper>
+                        <EditionComponent image={paperback} edition="paperback"/>
+                        <EditionComponent image={hardback} edition="hardback"/>
+                        <EditionComponent image={kindle} edition="kindle"/>
+                        <EditionComponent image={audiobook} edition="audiobook"/>
+                    </StyIconsWrapper>
+                </StyCompleteDetails>
+            </StyContainer>
+            <StyDescriptionWrapper>
+                <p className="title">Description</p>
+                <p className="description-text">{book.volumeInfo && book.volumeInfo.description}</p> 
+            </StyDescriptionWrapper>
+        </StyModalWrapper> )
+    
 };
+
+const StyDescriptionWrapper = styled.div`
+    width: 85%;
+    height: fit-content;
+    margin-right: auto;
+    margin-left: auto;
+    /* p{
+        margin: 0 8rem;
+    } */
+    .title{
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    .description-text{
+        margin-bottom: 2rem;
+    }
+    margin-top: 3rem;
+`
+
+const StyModalWrapper = styled.div`
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+`
 
 const StyIconsWrapper = styled.div`
 	width: fit-content;
@@ -105,13 +138,15 @@ const StyIconsWrapper = styled.div`
 
 
 const StyContainer = styled.div`
-	width: 100%;
+	/* width: 100%; */
 	height: fit-content;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin-top: 2rem;
+	margin-top: 3rem;
 	margin-left: 2rem;
+    margin-right: 2rem;
+    
 `;
 
 const StyledCover = styled.img`
