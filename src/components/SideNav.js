@@ -7,6 +7,8 @@ import MenuItem from './MenuItem';
 
 
 //fix issue : when I resize window, and I toggle the sidenav it looks weird
+//same book in different categories => rendered multiple times
+
 
 const SideNav = () => {
     const navDisplay = useSelector(store => store.navToggle);

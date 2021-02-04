@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { useLocation} from 'react-router-dom'; 
 import { useDispatch,useSelector } from 'react-redux';
 import allActions from '../actions/index';
-import Book from '../components/Book';
+import BookDetail from '../components/BookDetail';
 
 
 const BasePage = ({page}) => {
@@ -44,7 +44,9 @@ const BasePage = ({page}) => {
                 <StyledWhiteBox></StyledWhiteBox>
             </StyledBackdrop>
 
-            <BookContainer style={activeBook.activeId ? {display:'flex'} : {display:'none'}}><p>heey</p></BookContainer>
+            <BookContainer style={activeBook.activeId ? {display:'flex'} : {display:'none'}}>
+                <BookDetail />
+            </BookContainer>
             
 
             <StyledWrapper>
