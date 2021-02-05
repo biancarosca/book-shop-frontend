@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobeEurope, faStar, faShoppingCart, faHistory} from '@fortawesome/free-solid-svg-icons';
+import { faGlobeEurope, faHeart, faShoppingCart, faHistory} from '@fortawesome/free-solid-svg-icons';
 
 const MenuItem = ({page}) => {
     const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const MenuItem = ({page}) => {
             iconName = faGlobeEurope;
             break;
         case 'wishlist':
-            iconName = faStar;
+            iconName = faHeart;
             break;
         case 'cart':
             iconName = faShoppingCart;

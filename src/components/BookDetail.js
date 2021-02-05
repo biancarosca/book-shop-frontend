@@ -8,6 +8,10 @@ import paperback from "../images/paperback.png";
 import kindle from "../images/kindle.png";
 import { useSelector } from "react-redux";
 import EditionComponent from './EditionComponent';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+
 
 const BookDetail = ({ book }) => {
 	const activeEdition = useSelector((store) => store.activeEdition);
@@ -46,7 +50,10 @@ const BookDetail = ({ book }) => {
                     alt={book.volumeInfo && `${book.volumeInfo.title}`}
                 />
                 <StyCompleteDetails>
-                    <h1>{book.volumeInfo && book.volumeInfo.title}</h1>
+                    <div className="title-container">
+                        <h1>{book.volumeInfo && book.volumeInfo.title}</h1>
+                        <StyHeart icon={faHeart}/>
+                    </div>
                     {book.volumeInfo &&
                         book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
                     <h2 className="price">
@@ -92,6 +99,7 @@ const BookDetail = ({ book }) => {
                         <EditionComponent image={kindle} edition="kindle"/>
                         <EditionComponent image={audiobook} edition="audiobook"/>
                     </StyIconsWrapper>
+                <StyBtn>Add to Cart</StyBtn>
                 </StyCompleteDetails>
             </StyContainer>
             <StyDescriptionWrapper>
@@ -101,6 +109,24 @@ const BookDetail = ({ book }) => {
         </StyModalWrapper> )
     
 };
+
+const StyBtn = styled.button`
+    text-decoration: none;
+    font-family: 'Poppins',sans-serif;
+    font-size: 1rem;
+    background-color: white;
+    padding: 0 2rem;
+    border-radius: 1rem;
+    border: 1px solid #18D47C;
+    margin-top: 2rem;
+
+`
+
+const StyHeart = styled(FontAwesomeIcon)`
+    font-size: 1.5rem;
+    color: #EC1F26;
+    margin-left: 1rem;
+`
 
 const StyDescriptionWrapper = styled.div`
     width: 85%;
@@ -141,7 +167,7 @@ const StyContainer = styled.div`
 	/* width: 100%; */
 	height: fit-content;
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	justify-content: center;
 	margin-top: 3rem;
 	margin-left: 2rem;
@@ -155,6 +181,13 @@ const StyledCover = styled.img`
 `;
 
 const StyCompleteDetails = styled.div`
+    .title-container{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 	margin-left: 2rem;
 	h1 {
 		font-size: 1.3rem;

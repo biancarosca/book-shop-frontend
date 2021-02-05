@@ -17,10 +17,11 @@ const EditionComponent = ({image,edition}) => {
 const StyIconContainer = styled.div`
 	width: 80px;
 	height: fit-content;
-	background-color: #b8ddcb;
+	background-color: white;
 	margin-right: 1rem;
 	padding: 0.5rem;
 	border-radius: 10px;
+	border: 1px solid grey;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

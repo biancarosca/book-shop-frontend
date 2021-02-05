@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { faGlobeEurope, faStar, faShoppingCart, faHistory} from '@fortawesome/free-solid-svg-icons';
 import {  useSelector } from 'react-redux';
 import { motion } from "framer-motion";
 import MenuItem from './MenuItem';
@@ -38,10 +37,10 @@ const SideNav = () => {
             variants = {variants}
         >
             <ul>
-                <MenuItem page="browse" icon={faGlobeEurope}/>
-                <MenuItem page="wishlist" icon={faStar}/>
-                <MenuItem page="cart" icon={faShoppingCart}/>
-                <MenuItem page="history" icon={faHistory}/>
+                <MenuItem page="browse" />
+                <MenuItem page="wishlist" />
+                <MenuItem page="cart" />
+                <MenuItem page="history" />
 
             </ul>
         </StyledNav>
