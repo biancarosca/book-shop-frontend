@@ -6,15 +6,18 @@ import audiobook from "../images/audiobook.png";
 import hardback from "../images/hardback.png";
 import paperback from "../images/paperback.png";
 import kindle from "../images/kindle.png";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import EditionComponent from './EditionComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-
+import {saveToLS,getFromLS} from '../util';
+import allActions from "../actions";
 
 const BookDetail = ({ book }) => {
-	const activeEdition = useSelector((store) => store.activeEdition);
+    const dispatch = useDispatch();
+    const activeEdition = useSelector(store => store.activeEdition);
+    const wishlistedBooks = useSelector(store => store.wishlist);
 	const choosePrice = (edition,paperbackPrice) => {
         let price;
 		switch (edition) {
@@ -38,7 +41,31 @@ const BookDetail = ({ book }) => {
                 break;
 		}
 		return price;
-	};
+    };
+    
+    const toggleBookWishlist = () => {
+        let currentWishlist = getFromLS('wishlist');
+        if (!currentWishlist)
+            currentWishlist = [];
+
+        let bookIdx = -1;
+        console.log(currentWishlist);
+        currentWishlist.forEach((wishlisted,idx) => {
+            if(wishlisted.id === book.id)
+                bookIdx = idx;
+        });
+        console.log(bookIdx);
+        if(bookIdx === -1){
+            currentWishlist.push(book);
+            dispatch(allActions.wishlistBook(book));
+        }
+        else{
+            currentWishlist.splice(bookIdx,1);
+            dispatch(allActions.removeFromWishlist(bookIdx));
+        }
+        console.log(currentWishlist);
+        saveToLS('wishlist',currentWishlist);
+    }
 
 	return (
         <StyModalWrapper>
@@ -52,7 +79,10 @@ const BookDetail = ({ book }) => {
                 <StyCompleteDetails>
                     <div className="title-container">
                         <h1>{book.volumeInfo && book.volumeInfo.title}</h1>
-                        <StyHeart icon={faHeart}/>
+                        <StyHeart 
+                        icon={wishlistedBooks.filter(wishlisted => wishlisted.id === book.id).length === 0 ? 
+                            faHeart : solidHeart} 
+                        onClick={toggleBookWishlist}/>
                     </div>
                     {book.volumeInfo &&
                         book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
