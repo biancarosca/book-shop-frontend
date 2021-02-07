@@ -77,7 +77,7 @@ const StyledNav = styled(motion.nav)`
 
 
         span{
-            position:relative;
+            position:absolute;
             left: 1.5rem;
             @media (max-width:540px){
                 left:1rem;
@@ -91,6 +91,7 @@ const StyledNav = styled(motion.nav)`
         color: #A1A6AA;
         display: flex;
         align-items: center;
+        height: 3rem;
         @media (max-width:540px){
                 text-align:center;
                 }
@@ -101,8 +102,8 @@ const StyledNav = styled(motion.nav)`
 
         p{
             font-size: 1rem;
-            position: relative;
-            left: 2rem;
+            position: absolute;
+            left: 3.5rem;
 
             @media (max-width:540px){
                 font-size:0;
