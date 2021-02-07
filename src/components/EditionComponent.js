@@ -34,11 +34,22 @@ const StyIconContainer = styled.div`
 		background-color: #8dd6b1;
 		cursor: pointer;
 	}
+
+	@media (max-width:1350px){
+        width: 50px;
+		p{
+			display: none;
+		}
+    }
 `;
 
 const StyledIcons = styled.img`
 	width: 50px;
 	height: auto;
+
+	@media (max-width:1350px){
+        width: 25px;
+    }
 `;
 
 export default EditionComponent;

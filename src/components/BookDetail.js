@@ -14,6 +14,8 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import {saveToLS,getFromLS} from '../util';
 import allActions from "../actions";
 
+
+
 const BookDetail = ({ book }) => {
     const dispatch = useDispatch();
     const activeEdition = useSelector(store => store.activeEdition);
@@ -156,6 +158,10 @@ const StyHeart = styled(FontAwesomeIcon)`
     font-size: 1.5rem;
     color: #EC1F26;
     margin-left: 1rem;
+    &:hover {
+    transform: scale(1.2);
+    transition: all 0.5s ease-in-out;
+    }
 `
 
 const StyDescriptionWrapper = styled.div`
@@ -163,9 +169,6 @@ const StyDescriptionWrapper = styled.div`
     height: fit-content;
     margin-right: auto;
     margin-left: auto;
-    /* p{
-        margin: 0 8rem;
-    } */
     .title{
         font-weight: bold;
         margin-bottom: 1rem;
@@ -194,20 +197,43 @@ const StyIconsWrapper = styled.div`
 
 
 const StyContainer = styled.div`
-	/* width: 100%; */
 	height: fit-content;
 	display: flex;
-	/* align-items: center; */
 	justify-content: center;
 	margin-top: 3rem;
 	margin-left: 2rem;
     margin-right: 2rem;
+
+    @media (max-width:950px){
+        flex-direction: column;
+        align-items: center;
+    }
     
 `;
 
 const StyledCover = styled.img`
 	height: 500px;
 	width: 350px;
+
+
+    @media (max-width:1420px){
+        width: 300px;
+        height: 450px;
+    }
+
+    @media (max-width:1120px){
+        width: 250px;
+        height: 400px;
+    }
+
+    @media (max-width:1020px){
+        width: 200px;
+        height: 350px;
+    }
+
+    @media (max-width:950px){
+        margin-bottom: 1.5rem;
+    }
 `;
 
 const StyCompleteDetails = styled.div`
@@ -231,6 +257,17 @@ const StyCompleteDetails = styled.div`
 	.price {
 		margin-top: 1rem;
 	}
+
+    @media (max-width: 550px){
+        h1{
+            font-size: 1rem;
+        }
+
+        h3{
+            font-size: 0.8rem;
+        }
+
+    }
 `;
 
 const StyLeftCol = styled.div`
@@ -247,6 +284,17 @@ const StyDetailWrapper = styled.div`
 	height: fit-content;
 	margin-top: 1rem;
 	margin-right: 2rem;
+    @media (max-width:1350px){
+        p{
+            font-size: 0.9rem;
+        }
+    }
+
+    @media (max-width:950px){
+        p{
+            font-size: 1rem;
+        }
+    }
 `;
 
 const StyledRevsBox = styled.div`
