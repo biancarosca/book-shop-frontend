@@ -24,7 +24,7 @@ const Book = ({language,title,image,authors,id}) => {
             {language === 'en' &&
             <StyledContainer id={id} onClick = {openBookDetail}>
                 <StyledImg id={id} src={image} alt={title}></StyledImg>
-                <StyledTitle id={id}>{title.length > 20 ? `${title.slice(0,20)}...` : title}</StyledTitle>
+                <StyledTitle id={id}>{title.length > 20 ? `${title.slice(0,20)}...` : title}</StyledTitle> 
                 {authors && (authors.length > 1 ? <StyledAuthor id={id} >{authors[0]}...</StyledAuthor> : <StyledAuthor id={id}>{authors[0]}</StyledAuthor> )}
                 <RatingComponent id={id} />
             </StyledContainer>

@@ -33,7 +33,7 @@ export const activeBook = (state='',action) => {
 		case "ACTIVATE_BOOK":
 			return action.payload;
 		default:
-			return {...state}
+			return {...state};
 	}
 }
 

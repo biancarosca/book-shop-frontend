@@ -51,12 +51,12 @@ const BookDetail = ({ book }) => {
             currentWishlist = [];
 
         let bookIdx = -1;
-        console.log(currentWishlist);
+       
         currentWishlist.forEach((wishlisted,idx) => {
             if(wishlisted.id === book.id)
                 bookIdx = idx;
         });
-        console.log(bookIdx);
+
         if(bookIdx === -1){
             currentWishlist.push(book);
             dispatch(allActions.wishlistBook(book));
@@ -65,7 +65,7 @@ const BookDetail = ({ book }) => {
             currentWishlist.splice(bookIdx,1);
             dispatch(allActions.removeFromWishlist(bookIdx));
         }
-        console.log(currentWishlist);
+       
         saveToLS('wishlist',currentWishlist);
     }
 
@@ -133,18 +133,6 @@ const BookDetail = ({ book }) => {
         </StyModalWrapper> )
     
 };
-
-// const StyBtn = styled.button`
-//     text-decoration: none;
-//     font-family: 'Poppins',sans-serif;
-//     font-size: 1rem;
-//     background-color: white;
-//     padding: 0 2rem;
-//     border-radius: 1rem;
-//     border: 1px solid #18D47C;
-//     margin-top: 2rem;
-
-// `
 
 const StyHeart = styled(FontAwesomeIcon)`
     font-size: 1.5rem;
