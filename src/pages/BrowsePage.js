@@ -6,7 +6,7 @@ import Book from '../components/Book';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
 import { motion } from "framer-motion";
-
+import { StyScrollBar, StyGlobalHeader } from '../components/GlobalStyles';
 
 
 const BrowsePage= ({locationChanged,variants}) => {
@@ -84,66 +84,23 @@ const BrowsePage= ({locationChanged,variants}) => {
 }
 
 
-const StyledMain = styled.div`
+const StyledMain = styled(StyScrollBar)`
     display: flex;
     flex-wrap: wrap;
     height: 80vh;
     overflow-y: scroll;
-    ::-webkit-scrollbar {
-        width: 10px;
-        z-index: 1;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #2B2D30;
-        z-index :1;
-        }
-    ::-webkit-scrollbar-thumb {
-        background: #18D47C; 
-        z-index:1;
-
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background:#16b769; 
-    }
 `
 
 const StyledWrapper = styled(motion.div)`
     min-height: 90vh;
     width: 100%;
 `
-const StyledHeader = styled.div`
-    background-color: #EEF1F9;
-    height: 10vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #d8d8d8;
+const StyledHeader = styled(StyGlobalHeader)`
 
     @media (max-width:700px){
         flex-direction: column;
         justify-content: center;
         text-align: center;
-    }
-
-    @media (max-height:750px){
-        height: 15vh;
-    }
-
-    @media (max-height:500px){
-        height: 18vh;
-    }
-    h1{
-        font-size: 1rem;
-        color: #756e6e;
-        margin: 1rem;
-        @media (max-width:700px){
-            margin-bottom: 0;
-        }
-        @media (max-height:500px){
-        font-size: 0.8rem;
-        }
     }
 
     input{

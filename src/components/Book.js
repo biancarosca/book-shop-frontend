@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Rating from '@material-ui/lab/Rating';
-import { withStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector} from 'react-redux';
 import allActions from '../actions/index';
+import RatingComponent from './RatingComponent';
 
 const Book = ({language,title,image,authors,id}) => {
     const dispatch = useDispatch();
@@ -27,31 +26,12 @@ const Book = ({language,title,image,authors,id}) => {
                 <StyledImg id={id} src={image} alt={title}></StyledImg>
                 <StyledTitle id={id}>{title.length > 20 ? `${title.slice(0,20)}...` : title}</StyledTitle>
                 {authors && (authors.length > 1 ? <StyledAuthor id={id} >{authors[0]}...</StyledAuthor> : <StyledAuthor id={id}>{authors[0]}</StyledAuthor> )}
-                <StyledRevsBox id={id}>
-                    <StyledRating id={id} name="read-only" value={4.3} precision={0.5} readOnly />
-                    <span id={id} className="numRev">(14)</span>
-                </StyledRevsBox>
+                <RatingComponent id={id} />
             </StyledContainer>
             }   
         </>
     );
 }
-
-const StyledRevsBox = styled.div`
-    display: flex;
-    align-items: center;
-    .numRev{
-        font-size: 0.9rem;
-    }
-    z-index: -1;
-    
-`
-
-const StyledRating = withStyles({
-    iconFilled: {
-      color: '#18D47C',
-    },
-  })(Rating);
 
 const StyledAuthor = styled.h4`
     font-size: 0.7rem;

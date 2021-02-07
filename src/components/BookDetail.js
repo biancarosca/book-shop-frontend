@@ -1,6 +1,4 @@
 import React from "react";
-import Rating from "@material-ui/lab/Rating";
-import { withStyles } from "@material-ui/core/styles";
 import styled from "styled-components";
 import audiobook from "../images/audiobook.png";
 import hardback from "../images/hardback.png";
@@ -13,6 +11,8 @@ import { faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import {saveToLS,getFromLS} from '../util';
 import allActions from "../actions";
+import RatingComponent from './RatingComponent';
+import { StyBtn } from './GlobalStyles';
 
 
 
@@ -94,15 +94,7 @@ const BookDetail = ({ book }) => {
                             : choosePrice(Object.keys(activeEdition)[0],8.99)}
                         $
                     </h2>
-                    <StyledRevsBox>
-                        <StyledRating
-                            name="read-only"
-                            value={4.3}
-                            precision={0.5}
-                            readOnly
-                        />
-                        <span className="numRev">(14)</span>
-                    </StyledRevsBox>
+                    <RatingComponent id={book.id} />
                     <StyDetailWrapper>
                         <StyLeftCol>
                             <p>Genre</p>
@@ -142,17 +134,17 @@ const BookDetail = ({ book }) => {
     
 };
 
-const StyBtn = styled.button`
-    text-decoration: none;
-    font-family: 'Poppins',sans-serif;
-    font-size: 1rem;
-    background-color: white;
-    padding: 0 2rem;
-    border-radius: 1rem;
-    border: 1px solid #18D47C;
-    margin-top: 2rem;
+// const StyBtn = styled.button`
+//     text-decoration: none;
+//     font-family: 'Poppins',sans-serif;
+//     font-size: 1rem;
+//     background-color: white;
+//     padding: 0 2rem;
+//     border-radius: 1rem;
+//     border: 1px solid #18D47C;
+//     margin-top: 2rem;
 
-`
+// `
 
 const StyHeart = styled(FontAwesomeIcon)`
     font-size: 1.5rem;
@@ -297,19 +289,5 @@ const StyDetailWrapper = styled.div`
     }
 `;
 
-const StyledRevsBox = styled.div`
-	display: flex;
-	align-items: center;
-	margin-top: 1rem;
-	.numRev {
-		font-size: 0.9rem;
-	}
-`;
-
-const StyledRating = withStyles({
-	iconFilled: {
-		color: "#18D47C",
-	},
-})(Rating);
 
 export default BookDetail;
