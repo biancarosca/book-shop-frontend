@@ -7,13 +7,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
 import { motion } from "framer-motion";
 import { StyScrollBar, StyGlobalHeader } from '../components/GlobalStyles';
+import { getFromLS } from '../util'; 
 
 
 const BrowsePage= ({locationChanged,variants}) => {
     const dispatch = useDispatch();
     
+    //load all the books
     useEffect(() => {
-        dispatch(allActions.loadBooks());
+        const books = getFromLS('books'); 
+        if(!books)
+          dispatch(allActions.loadBooks());
     },[dispatch]);
 
     const allCategoriesObj = useSelector(store =>  store.booksReducer );

@@ -1,6 +1,13 @@
+import { getFromLS } from '../util';
+
+let books0;
+if(getFromLS('books'))
+	books0 = getFromLS('books');
+else
+	books0 = {};
 
 export const booksReducer = (
-	state = {},
+	state = books0,
 	action
 ) => {
 	switch (action.type) {

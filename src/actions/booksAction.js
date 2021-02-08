@@ -1,5 +1,5 @@
 import axios from 'axios';
-import orderAlphabetically  from '../util';
+import orderAlphabetically, {saveToLS}  from '../util';
 
 let categories = ['Cooking','Psychology','Science','Self-Help','Fiction','History','Travel','Education','Art','Mathematics','Poetry','Philosophy'];
 
@@ -14,6 +14,10 @@ export const loadBooks = () => async dispatch => {
     action = {...action, ...action.payload}
     action.payload[`${category}`] = results.data;
     };
+
+    //save book to local storage
+    saveToLS('books',action.payload);
+    
     dispatch(action);
 }
 

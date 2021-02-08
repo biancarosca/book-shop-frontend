@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,15 +16,24 @@ const WishlistPage = ({locationChanged,variants}) => {
     const navDisplay = useSelector(store => store.navToggle);
     const wishlist = useSelector(store => store.wishlist);
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
+
+    //load all the books
+    useEffect(() => {
+        const books = getFromLS('books'); 
+        if(!books)
+          dispatch(allActions.loadBooks());
+    },[dispatch]);
+
     
     const openBookDetail = (event) => {
         const arrayOfCategories = [...Object.values(allCategoriesObj)];
         let arrayOfBooks=[];
+
         arrayOfCategories.forEach(array => {
             arrayOfBooks.push(...array.items);
         })
-    const bookIdx = arrayOfBooks.findIndex(book => book.id === event.target.id);
-    dispatch(allActions.bookActive(arrayOfBooks[bookIdx]));
+        const bookIdx = arrayOfBooks.findIndex(book => book.id === event.target.id);
+        dispatch(allActions.bookActive(arrayOfBooks[bookIdx]));
     }
 
     const removeBook = (event) => {
@@ -51,9 +60,9 @@ const WishlistPage = ({locationChanged,variants}) => {
         transition={{ type:"tween",duration: 0.5 }}
         variants = {variants}
         >
-            <StyGlobalHeader>
+            < WishlistHeader>
                 <h1>Wishlist</h1>
-            </StyGlobalHeader>
+            </ WishlistHeader>
            {wishlist.length ? wishlist.map(book => 
            <StyContent key={book.id}>
                <StyImage src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
@@ -70,13 +79,23 @@ const WishlistPage = ({locationChanged,variants}) => {
                    </div>
                    <div className="btns-container">
                        <DetailsBtn id={book.id } onClick={openBookDetail}>View details</DetailsBtn>
-                       <StyBtn>Add to cart</StyBtn>
+                       <ATCbtn>Add to cart</ATCbtn>
                    </div>
                </div>
            </StyContent>): <StyEmptyWish>Your wishlist is currently empty.</StyEmptyWish>}
         </StyledWrapper>
     );
 }
+
+const WishlistHeader = styled(StyGlobalHeader)`
+    @media (max-width: 715px){
+        height: 8vh;
+        h1{
+        margin: 0 2rem;
+        }
+    }
+`
+
 
 const StyEmptyWish = styled.div`
     margin: 2rem;
@@ -91,10 +110,33 @@ const DetailsBtn = styled(StyBtn)`
     margin-right:2rem;
     outline: none;
     transition: 0.3s;
+    width: 180px;
     cursor: pointer;
     &:hover {
         border-color: #2B2D30;
     }
+    @media (max-width: 550px){
+        font-size: smaller;
+        margin-right: 0.5rem;
+        width: 150px;
+    }
+    @media (max-width: 350px){
+        margin-top: 0.8rem;
+    }
+`
+
+const ATCbtn = styled(StyBtn)`
+    width: 180px;
+    @media (max-width: 750px){
+        margin-top: 0.5rem;
+    }
+
+    @media (max-width: 550px){
+        font-size: smaller;
+        margin-right: 0.5rem;
+        width: 150px;
+    }
+    
 `
 
 const StyContent = styled.div`
@@ -109,6 +151,10 @@ const StyContent = styled.div`
         width: 100%;
         flex-direction: column;
         justify-content: space-between;
+
+        @media (max-width: 550px){
+            margin: 0 0.4rem;
+        }
     }
 
     .book-container{
@@ -119,14 +165,23 @@ const StyContent = styled.div`
     }
 
     .book-details{
+
         h1{
             font-size: 1.3rem;
             color: #2B2D30;
+            
+            @media (max-width: 350px){
+                font-size: smaller;
+            }
         }
         h3{
             font-size: 0.9rem;
             font-style: italic;
             font-weight: lighter;
+            
+            @media (max-width: 350px){
+                font-size: smaller;
+            }
         }
     }
 
@@ -138,12 +193,26 @@ const StyContent = styled.div`
         &:hover{
             color:#18D47C;
         }
+        @media (max-width: 550px){
+                margin-right: 0.5rem;
+            }
+    }
+    @media (max-width: 550px){
+        margin: 0.3rem;
     }
 `
 
 const StyImage = styled.img`
     width: 150px;
     height: 230px;
+    @media (max-width: 550px){
+        width: 110px;
+        height: 180px;
+    }
+    @media (max-width: 350px){
+        width: 80px;
+        height: 130px;
+    }
 `
 
 const StyledWrapper = motion.custom(styled(StyScrollBar)`
@@ -151,6 +220,7 @@ const StyledWrapper = motion.custom(styled(StyScrollBar)`
     min-height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
+
 `)
 
 export default WishlistPage;

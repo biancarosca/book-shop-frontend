@@ -5,9 +5,6 @@ import { motion } from "framer-motion";
 import MenuItem from './MenuItem';
 
 
-//fix issue : when I resize window, and I toggle the sidenav it looks weird
-//same book in different categories => rendered multiple times ( I will create my own api because Google api just gives mixed categories)
-
 
 const SideNav = () => {
     const navDisplay = useSelector(store => store.navToggle);
