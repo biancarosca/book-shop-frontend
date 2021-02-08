@@ -13,5 +13,29 @@ export const getFromLS = (key) => {
     return JSON.parse(localStorage.getItem(key));
 } 
 
+export const choosePrice = (edition,paperbackPrice) => {
+    let price;
+    switch (edition) {
+        case "paperback": {
+            price = paperbackPrice;
+            break;
+        }
+        case "hardback": {
+            price = (paperbackPrice + 0.35*paperbackPrice).toFixed(2);
+            break;
+        }
+        case "kindle": {
+            price = (paperbackPrice - 0.30*paperbackPrice).toFixed(2);
+            break;
+        }
+        case "audiobook": {
+            price = (paperbackPrice*2).toFixed(2);
+            break;
+        }
+        default:
+            break;
+    }
+    return price;
+};
 
 export default orderAlphabetically;

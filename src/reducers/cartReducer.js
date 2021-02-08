@@ -13,6 +13,11 @@ export const shoppingCart = (state = cart0,action) => {
             {state.splice(action.payload,1);
             return [...state];
             }
+        case "UPDATE_CART":
+            {
+            state[action.payload[0]].cart.amount += action.payload[1];
+            return [...state]; 
+            }
         default:
             return [...state];
     }

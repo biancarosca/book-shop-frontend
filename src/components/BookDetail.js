@@ -7,35 +7,11 @@ import kindle from "../images/kindle.png";
 import { useSelector } from "react-redux";
 import EditionComponent from './EditionComponent';
 import RatingComponent from './RatingComponent';
-import Btn from './AtcWishlistBtns';
+import Btn from './Btn';
+import { choosePrice } from '../util';
 
 const BookDetail = ({ book }) => {
     const activeEdition = useSelector(store => store.activeEdition);
-
-	const choosePrice = (edition,paperbackPrice) => {
-        let price;
-		switch (edition) {
-			case "paperback": {
-				price = paperbackPrice;
-				break;
-			}
-			case "hardback": {
-				price = (paperbackPrice + 0.35*paperbackPrice).toFixed(2);
-				break;
-			}
-			case "kindle": {
-				price = (paperbackPrice - 0.30*paperbackPrice).toFixed(2);
-				break;
-            }
-            case "audiobook": {
-				price = (paperbackPrice*2).toFixed(2);
-				break;
-            }
-            default:
-                break;
-		}
-		return price;
-    };
     
 	return (
         <StyModalWrapper>
@@ -75,7 +51,7 @@ const BookDetail = ({ book }) => {
                                 {book.volumeInfo && book.volumeInfo.publishedDate}
                             </p>
                             <p>
-                                {book.volumeInfo &&
+                                {(book.volumeInfo && book.volumeInfo.industryIdentifiers) &&
                                     book.volumeInfo.industryIdentifiers[0]
                                         .identifier}
                             </p>

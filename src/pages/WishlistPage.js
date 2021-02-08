@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { StyScrollBar, StyGlobalHeader } from '../components/GlobalStyles';
 import allActions from '../actions/index';
 import { getFromLS } from '../util';
-import Btn from '../components/AtcWishlistBtns';
 import BookListingSummary from '../components/BookListingSummary';
 
 const WishlistPage = ({locationChanged,variants}) => {
@@ -33,7 +32,6 @@ const WishlistPage = ({locationChanged,variants}) => {
             </ WishlistHeader>
            {wishlist.length ? wishlist.map(book => 
            <BookListingSummary key={book.id} book={book} targetList="wishlist">
-               <Btn type="cart" book={book}></Btn>
             </BookListingSummary>) 
             : <StyEmptyWish>Your wishlist is currently empty.</StyEmptyWish>}
         </StyledWrapper>

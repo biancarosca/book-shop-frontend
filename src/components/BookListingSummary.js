@@ -27,9 +27,15 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
         let currentArr = getFromLS(targetList);
         let bookIdx;
     
-        currentArr.forEach((arr,idx) => {
-            if(arr.id === event.target.id)
-                bookIdx = idx;
+        currentArr.forEach((current,idx) => {
+            if(current.id === event.target.id){
+                if(targetList === 'cart') {
+                    if(current.cart.edition === book.cart.edition){
+                         bookIdx = idx;
+                    }
+                 }
+                 else bookIdx = idx;
+            }
         });
 
         //remove from state
@@ -43,7 +49,6 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
         saveToLS(targetList,currentArr);
     }
 
-    // console.log(React.Children.toArray(children));
 
     return(
         <StyContent key={book.id}>
@@ -54,6 +59,8 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
                             <h1>{book.volumeInfo.title}</h1>
                             {book.volumeInfo && book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
                             <RatingComponent id={book.id} />
+                            {React.Children.toArray(children)[0]}
+                            {React.Children.toArray(children)[1]}
                         </div>
                         <div className="close-icon" id={book.id} onClick={(event) => removeBook(event,targetList)}>
                             <FontAwesomeIcon style={{pointerEvents: 'none'}}icon={faTimes} />
@@ -61,7 +68,7 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
                    </div>
                    <div className="btns-container">
                        <DetailsBtn id={book.id } onClick={openBookDetail}>View details</DetailsBtn>
-                       {children}
+                       {React.Children.toArray(children)[2]}
                    </div>
                </div>
            </StyContent>
