@@ -4,22 +4,14 @@ import audiobook from "../images/audiobook.png";
 import hardback from "../images/hardback.png";
 import paperback from "../images/paperback.png";
 import kindle from "../images/kindle.png";
-import {useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import EditionComponent from './EditionComponent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import {saveToLS,getFromLS} from '../util';
-import allActions from "../actions";
 import RatingComponent from './RatingComponent';
-import { StyBtn } from './GlobalStyles';
-
-
+import Btn from './AtcWishlistBtns';
 
 const BookDetail = ({ book }) => {
-    const dispatch = useDispatch();
     const activeEdition = useSelector(store => store.activeEdition);
-    const wishlistedBooks = useSelector(store => store.wishlist);
+
 	const choosePrice = (edition,paperbackPrice) => {
         let price;
 		switch (edition) {
@@ -45,30 +37,6 @@ const BookDetail = ({ book }) => {
 		return price;
     };
     
-    const toggleBookWishlist = () => {
-        let currentWishlist = getFromLS('wishlist');
-        if (!currentWishlist)
-            currentWishlist = [];
-
-        let bookIdx = -1;
-       
-        currentWishlist.forEach((wishlisted,idx) => {
-            if(wishlisted.id === book.id)
-                bookIdx = idx;
-        });
-
-        if(bookIdx === -1){
-            currentWishlist.push(book);
-            dispatch(allActions.wishlistBook(book));
-        }
-        else{
-            currentWishlist.splice(bookIdx,1);
-            dispatch(allActions.removeFromWishlist(bookIdx));
-        }
-       
-        saveToLS('wishlist',currentWishlist);
-    }
-
 	return (
         <StyModalWrapper>
             <StyContainer>
@@ -81,10 +49,7 @@ const BookDetail = ({ book }) => {
                 <StyCompleteDetails>
                     <div className="title-container">
                         <h1>{book.volumeInfo && book.volumeInfo.title}</h1>
-                        <StyHeart 
-                        icon={wishlistedBooks.filter(wishlisted => wishlisted.id === book.id).length === 0 ? 
-                            faHeart : solidHeart} 
-                        onClick={toggleBookWishlist}/>
+                        <Btn type="wishlist" book={book}></Btn>
                     </div>
                     {book.volumeInfo &&
                         book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
@@ -123,7 +88,7 @@ const BookDetail = ({ book }) => {
                         <EditionComponent image={kindle} edition="kindle"/>
                         <EditionComponent image={audiobook} edition="audiobook"/>
                     </StyIconsWrapper>
-                <StyBtn>Add to Cart</StyBtn>
+                <Btn type="cart" book={book} origin="detail"></Btn>
                 </StyCompleteDetails>
             </StyContainer>
             <StyDescriptionWrapper>
@@ -134,15 +99,6 @@ const BookDetail = ({ book }) => {
     
 };
 
-const StyHeart = styled(FontAwesomeIcon)`
-    font-size: 1.5rem;
-    color: #EC1F26;
-    margin-left: 1rem;
-    &:hover {
-    transform: scale(1.2);
-    transition: all 0.5s ease-in-out;
-    }
-`
 
 const StyDescriptionWrapper = styled.div`
     width: 85%;

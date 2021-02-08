@@ -135,11 +135,8 @@ const StyledHeader = styled(StyGlobalHeader)`
         @media (max-width:700px){
             margin-top: 0.4rem;
             margin-bottom: 1rem;
-            /* font-size: 0.9rem; */
         }
-        /* @media (max-height:500px){
-        font-size: 0.8rem;
-        } */
+        
     }
 
     span{
@@ -151,7 +148,6 @@ const StyledHeader = styled(StyGlobalHeader)`
     }
 
     .search-wrapper{
-        /* margin-right: 1rem; */
         @media (max-width:700px){
             margin-top: 0;
         }

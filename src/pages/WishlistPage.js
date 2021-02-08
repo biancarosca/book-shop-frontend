@@ -9,7 +9,7 @@ import { StyScrollBar, StyGlobalHeader } from '../components/GlobalStyles';
 import { StyBtn } from '../components/GlobalStyles';
 import allActions from '../actions/index';
 import {saveToLS,getFromLS} from '../util';
-
+import Btn from '../components/AtcWishlistBtns';
 
 const WishlistPage = ({locationChanged,variants}) => {
     const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const WishlistPage = ({locationChanged,variants}) => {
                    </div>
                    <div className="btns-container">
                        <DetailsBtn id={book.id } onClick={openBookDetail}>View details</DetailsBtn>
-                       <ATCbtn>Add to cart</ATCbtn>
+                       <Btn type="cart" book={book}></Btn>
                    </div>
                </div>
            </StyContent>): <StyEmptyWish>Your wishlist is currently empty.</StyEmptyWish>}
@@ -108,10 +108,9 @@ const StyEmptyWish = styled.div`
 
 const DetailsBtn = styled(StyBtn)`
     margin-right:2rem;
-    outline: none;
     transition: 0.3s;
     width: 180px;
-    cursor: pointer;
+
     &:hover {
         border-color: #2B2D30;
     }
@@ -125,19 +124,6 @@ const DetailsBtn = styled(StyBtn)`
     }
 `
 
-const ATCbtn = styled(StyBtn)`
-    width: 180px;
-    @media (max-width: 750px){
-        margin-top: 0.5rem;
-    }
-
-    @media (max-width: 550px){
-        font-size: smaller;
-        margin-right: 0.5rem;
-        width: 150px;
-    }
-    
-`
 
 const StyContent = styled.div`
     width: 100%;

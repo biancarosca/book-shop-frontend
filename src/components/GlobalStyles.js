@@ -69,6 +69,8 @@ export const StyBtn = styled.button`
 text-decoration: none;
 font-family: 'Poppins',sans-serif;
 font-size: 1rem;
+outline: none;
+cursor: pointer;
 background-color: white;
 padding: 0 2rem;
 border-radius: 1rem;

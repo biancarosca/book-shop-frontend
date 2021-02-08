@@ -68,7 +68,6 @@ const StyContainer = styled.div`
     overflow-x: hidden;
     scrollbar-color: #18D47C #2B2D30;
     scrollbar-width: thin;
-    /* -webkit-overflow-scrolling: auto !important; */
     ::-webkit-scrollbar {
         width: 10px;
         z-index: 1;
