@@ -15,33 +15,33 @@ const Btn = ({type,book,origin=''}) => {
 
     //add/remove from wishlist/cart
     const toggleItem = (key) => {
-        let currentWishlist = getFromLS(key);
-        if (!currentWishlist)
-            currentWishlist = [];
+        let currentArr = getFromLS(key);
+        if (!currentArr)
+            currentArr = [];
 
         let bookIdx = -1;
        
-        currentWishlist.forEach((wishlisted,idx) => {
-            if(wishlisted.id === book.id)
+        currentArr.forEach((arr,idx) => {
+            if(arr.id === book.id)
                 bookIdx = idx;
         });
 
         if(bookIdx === -1){
-            currentWishlist.push(book);
+            currentArr.push(book);
             if(key === 'wishlist')
                 dispatch(allActions.wishlistBook(book));
             else
                 dispatch(allActions.addToCart(book));
         }
         else{
-            currentWishlist.splice(bookIdx,1);
+            currentArr.splice(bookIdx,1);
             if(key === 'wishlist')
                 dispatch(allActions.removeFromWishlist(bookIdx));
             else
-            dispatch(allActions.removeFromCart(bookIdx));
+                dispatch(allActions.removeFromCart(bookIdx));
         }
        
-        saveToLS(key,currentWishlist);
+        saveToLS(key,currentArr);
     }
 
 
