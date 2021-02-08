@@ -93,6 +93,13 @@ const StyledMain = styled(StyScrollBar)`
     flex-wrap: wrap;
     height: 80vh;
     overflow-y: scroll;
+    @media (max-width:700px){
+      height: 77vh;
+    }
+
+    @media (max-height:580px){
+        height: 75vh;
+    }
 `
 
 const StyledWrapper = styled(motion.div)`
@@ -105,10 +112,20 @@ const StyledHeader = styled(StyGlobalHeader)`
         flex-direction: column;
         justify-content: center;
         text-align: center;
+        height: 13vh;
+        h1{
+          margin: 0.8rem 2rem;
+          margin-bottom: 0;
+        }
+    }
+
+    @media (max-height:580px){
+        height: 15vh;
     }
 
     input{
-        margin: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
         margin-right:0;
         outline: none;
         border-radius: 1rem;
@@ -117,11 +134,12 @@ const StyledHeader = styled(StyGlobalHeader)`
         padding: 0.5rem 2rem 0.5rem 0.5rem;
         @media (max-width:700px){
             margin-top: 0.4rem;
-            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            /* font-size: 0.9rem; */
         }
-        @media (max-height:500px){
+        /* @media (max-height:500px){
         font-size: 0.8rem;
-        }
+        } */
     }
 
     span{
@@ -133,7 +151,7 @@ const StyledHeader = styled(StyGlobalHeader)`
     }
 
     .search-wrapper{
-        margin-right: 1rem;
+        /* margin-right: 1rem; */
         @media (max-width:700px){
             margin-top: 0;
         }
