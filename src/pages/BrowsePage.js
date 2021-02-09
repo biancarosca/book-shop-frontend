@@ -8,6 +8,7 @@ import allActions from '../actions/index';
 import { motion } from "framer-motion";
 import { StyScrollBar, StyGlobalHeader } from '../components/GlobalStyles';
 import { getFromLS } from '../util'; 
+import CarouselComp from '../components/CarouselComp';
 
 
 const BrowsePage= ({locationChanged,variants}) => {
@@ -68,6 +69,7 @@ const BrowsePage= ({locationChanged,variants}) => {
                 </div>
             </StyledHeader>
             <StyledMain>
+            <CarouselComp />
             {Object.keys(renderedBooksObj).length ? allCategories.map(category => 
                 renderedBooksObj[category] && renderedBooksObj[category].items.map(book => 
                 <Book 
@@ -94,6 +96,9 @@ const BrowsePage= ({locationChanged,variants}) => {
     );
 }
 
+// const StyCarousel = styled(CarouselComp)`
+//   height: 50px;
+// `
 
 const StyledMain = styled(StyScrollBar)`
     display: flex;

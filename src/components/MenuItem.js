@@ -52,7 +52,7 @@ const StyledLink = styled(Link)`
             position:absolute;
             border-radius: 0.5rem;
             color: white;
-            bottom: 1rem;
+            bottom: 0.8rem;
             left: 1rem;
             background-color: #b73838;
             @media (max-width:350px){
