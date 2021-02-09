@@ -34,8 +34,13 @@ const BrowsePage= ({locationChanged,variants}) => {
             dispatch(allActions.restoreSearch());  
         else{
           allCategories.forEach(category => 
-              {const result = Object.values(allCategoriesObj[category].items)
-                .filter(arr => arr.volumeInfo.title.toLowerCase().includes(event.target.value.toLowerCase()));
+              {const result = Object.keys(allCategoriesObj) && Object.values(allCategoriesObj[category].items)
+      
+                .filter(arr => {
+                  let arrOfAuthors=[];
+                  if(arr.volumeInfo.authors)
+                    arrOfAuthors = arr.volumeInfo.authors.map(author => author.toLowerCase());
+                   return arr.volumeInfo.title.toLowerCase().includes(event.target.value.toLowerCase()) || arrOfAuthors.join(' ').includes(event.target.value.toLowerCase()) } ) ;
               const foundObj = {...allCategoriesObj[category]}
               foundObj.items = [...result]
               foundObj.totalItems = result.length
@@ -56,7 +61,7 @@ const BrowsePage= ({locationChanged,variants}) => {
             <StyledHeader>
                 <h1>Browse our collection</h1>
                 <div className="search-wrapper">
-                    <input type="text" onChange={searchHandler}></input>
+                    <input placeholder="Enter a keyword.."type="text" onChange={searchHandler}></input>
                     <span>
                         <StyledIcon icon={faSearch} />
                     </span>
@@ -64,7 +69,7 @@ const BrowsePage= ({locationChanged,variants}) => {
             </StyledHeader>
             <StyledMain>
             {Object.keys(renderedBooksObj).length ? allCategories.map(category => 
-                renderedBooksObj[category].items.map(book => 
+                renderedBooksObj[category] && renderedBooksObj[category].items.map(book => 
                 <Book 
                 language={book.volumeInfo.language}
                 title ={book.volumeInfo.title} 
@@ -73,7 +78,7 @@ const BrowsePage= ({locationChanged,variants}) => {
                 id={book.id}
                 key={book.id} 
                  />
-                )) : allCategories.length ?  allCategories.map(category => 
+                )) : allCategories.length && Object.keys(allCategoriesObj) ?  allCategories.map(category => 
                 allCategoriesObj[category].items.map(book => 
                 <Book 
                 language={book.volumeInfo.language}
