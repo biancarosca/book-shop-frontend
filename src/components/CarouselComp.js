@@ -1,7 +1,9 @@
-
+import React from 'react';
 import styled from 'styled-components';
 import Carousel from 'react-elastic-carousel';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import allActions from '../actions/index';
+
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -13,14 +15,27 @@ const breakPoints = [
   ]
 
 const CarouselComp = () => {
+    const dispatch = useDispatch();
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
     const allCategories = Object.keys(allCategoriesObj);
+    const activeCategory = useSelector(store => store.activeCategory)
 
     return(
         <StyWrapper>
             <StyCarousel breakPoints={breakPoints} itemsToShow={4} pagination={false}>
+                <StyCategory style={activeCategory === 'All' ? {backgroundColor: '#18D47C'} : {} } 
+                    onClick={() => 
+                    {dispatch(allActions.activateCategory('All'))
+                    dispatch(allActions.restoreSearch())
+                    }}>
+                    All
+                </StyCategory>
                 {allCategories && allCategories.map((category,idx) => 
-                    <StyCategory key={idx}>{category}</StyCategory>
+                    <StyCategory style={activeCategory === category ? {backgroundColor: '#18D47C'} : {} } 
+                    onClick={() => 
+                        {dispatch(allActions.activateCategory(category));
+                        dispatch(allActions.renderCategory(allCategoriesObj[category],category))}} key={idx}>{category}
+                    </StyCategory>
                 )}
             </StyCarousel>
         </StyWrapper>
@@ -60,8 +75,12 @@ const StyCategory = styled.span`
     color: white;
     background-color: #8dd6b1;
     border-radius: 1rem;
+    cursor: pointer;
     &:hover{
         background-color:#18D47C;
+    }
+    &:focus{
+        outline: none;
     }
 `
 

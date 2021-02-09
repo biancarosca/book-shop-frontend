@@ -44,3 +44,14 @@ export const bookEdition = (edition) => {
     let action = {type: "ACTIVATE_EDITION", payload: state}
     return action;
 }
+
+export const activateCategory = category => {
+    let action = {type: "ACTIVATE_CATEGORY", payload: category};
+    return action;
+}
+
+export const renderCategory = (catObj,category) => {
+    let action = {type: "RENDER_CATEGORY", payload: {}};
+    action.payload[`${category}`] = catObj;
+    return action;
+}

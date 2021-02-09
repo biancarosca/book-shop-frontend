@@ -27,7 +27,10 @@ const BrowsePage= ({locationChanged,variants}) => {
     const navDisplay = useSelector(store => store.navToggle);
     
     //when the page is changed and searched books are rendered, clear search
-    useEffect(() => dispatch(allActions.restoreSearch()),[dispatch]);
+    useEffect(() => {
+      dispatch(allActions.restoreSearch());
+      dispatch(allActions.activateCategory('All')); // restore to default category
+    },[dispatch]);
   
     const searchHandler = (event) => {
         

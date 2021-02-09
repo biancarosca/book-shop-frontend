@@ -28,6 +28,11 @@ export const renderedBooks = (state={},action) => {
 				...state,
 				...action.payload,
 			}
+		case "RENDER_CATEGORY":
+			return {
+				...action.payload
+			}
+
 		case "RESTORE_SEARCH":
 			return {};
 		default:
@@ -57,3 +62,13 @@ export const activeEdition = (state = actEdiState0 , action) => {
 	}
 }
 
+
+
+export const activeCategory = (state='All',action) => {
+	switch(action.type){
+		case "ACTIVATE_CATEGORY":
+			return action.payload;
+		default:
+			return state;
+	}
+}

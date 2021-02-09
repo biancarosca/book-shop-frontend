@@ -1,4 +1,4 @@
-import {searchUpdate,loadBooks,restoreSearch,bookActive,bookEdition} from './booksAction';
+import {searchUpdate,loadBooks,restoreSearch,bookActive,bookEdition,activateCategory,renderCategory} from './booksAction';
 import {toggleActiveState,toggleSideNav} from './navAction';
 import {wishlistBook,removeFromWishlist} from './wishlistAction' ;
 import {addToCart,removeFromCart,updateCart, updateTotal} from './cartAction';
@@ -17,6 +17,8 @@ const allActions ={
     removeFromCart,
     updateCart,
     updateTotal,
+    activateCategory,
+    renderCategory,
 };
 
 export default allActions;
