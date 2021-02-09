@@ -25,7 +25,7 @@ const ShoppingCartPage = ({locationChanged,variants}) => {
         });
         let currAmount = currentArr[bookIdx].cart.amount;
 
-        let price = parseFloat(getPrice(currentArr[bookIdx],1));
+        let price = getPrice(currentArr[bookIdx],1);
         if(increment === -1)
             price *= -1;
 

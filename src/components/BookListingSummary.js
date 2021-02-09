@@ -43,7 +43,7 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
             dispatch(allActions.removeFromWishlist(bookIdx));
         else{
             dispatch(allActions.removeFromCart(bookIdx));
-            let price = -parseFloat(getPrice(currentArr[bookIdx],currentArr[bookIdx].cart.amount));
+            let price = -getPrice(currentArr[bookIdx],currentArr[bookIdx].cart.amount);
             let currTotal = getFromLS("totalPrice");
             //update total price in state
             dispatch(allActions.updateTotal(price));

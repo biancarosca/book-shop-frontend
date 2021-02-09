@@ -21,28 +21,29 @@ export const choosePrice = (edition,paperbackPrice) => {
             break;
         }
         case "hardback": {
-            price = (paperbackPrice + 0.35*paperbackPrice).toFixed(2);
+            price = paperbackPrice + 0.35*paperbackPrice;
             break;
         }
         case "kindle": {
-            price = (paperbackPrice - 0.30*paperbackPrice).toFixed(2);
+            price = paperbackPrice - 0.30*paperbackPrice;
             break;
         }
         case "audiobook": {
-            price = (paperbackPrice*2).toFixed(2);
+            price = paperbackPrice*2;
             break;
         }
         default:
             break;
     }
-    return price;
+    return parseFloat(price.toFixed(2));
 };
 
 export const getPrice = (book,amount,edition='') => {
-    if(book.cart && book.cart.edition)
-        edition = book.cart.edition; 
-    return book.saleInfo && book.saleInfo.listPrice ? (choosePrice(edition,book.saleInfo.listPrice.amount)*amount).toFixed(2)
-        : (choosePrice(edition,8.99)*amount).toFixed(2)
+    if(!edition)
+        edition = book.cart.edition;
+
+    return book.saleInfo && book.saleInfo.listPrice ? parseFloat((choosePrice(edition,book.saleInfo.listPrice.amount)*amount).toFixed(2))
+        : parseFloat((choosePrice(edition,8.99)*amount).toFixed(2));
 }
 
 export const cutDecimals = number =>{

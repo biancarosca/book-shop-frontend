@@ -33,6 +33,7 @@ const Btn = ({type,book,origin=''}) => {
             }
         });
 
+
         //add
         if(bookIdx === -1){
             if(key === 'wishlist')
@@ -40,12 +41,12 @@ const Btn = ({type,book,origin=''}) => {
             else{
                 book.cart = {};
                 book.cart.amount = 0;
-                book.cart = {edition: Object.keys(activeEdition)[0], amount: book.cart.amount + 1};
+                book.cart = {edition:Object.keys(activeEdition)[0], amount : book.cart.amount + 1};
                 dispatch(allActions.addToCart(book));
             }
             currentArr.push(book);
         }
-        
+    
         //total price update
         if(key === "cart"){
             let currTotal = 0;
@@ -54,7 +55,9 @@ const Btn = ({type,book,origin=''}) => {
             let pieces = 1;
             if(bookIdx !==-1)
                 pieces = currentArr[bookIdx].cart.amount;
-            let price = parseFloat(getPrice(book,pieces,Object.keys(activeEdition)[0]));
+    
+            let price = getPrice(book,pieces,Object.keys(activeEdition)[0]);
+
             if(bookIdx !== -1)
                 price *= -1;
 
