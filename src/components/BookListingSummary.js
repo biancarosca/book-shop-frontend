@@ -4,7 +4,7 @@ import RatingComponent from '../components/RatingComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes} from '@fortawesome/free-solid-svg-icons';
 import allActions from '../actions/index';
-import {saveToLS,getFromLS} from '../util';
+import { saveToLS,getFromLS,getPrice,cutDecimals } from '../util';
 import { StyBtn } from '../components/GlobalStyles';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -41,8 +41,15 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
         //remove from state
         if(targetList === 'wishlist')
             dispatch(allActions.removeFromWishlist(bookIdx));
-        else
+        else{
             dispatch(allActions.removeFromCart(bookIdx));
+            let price = -parseFloat(getPrice(currentArr[bookIdx],currentArr[bookIdx].cart.amount));
+            let currTotal = getFromLS("totalPrice");
+            //update total price in state
+            dispatch(allActions.updateTotal(price));
+            //update total price in local storage
+            saveToLS("totalPrice",cutDecimals(currTotal + price));
+        }
         
         //remove from local storage
         currentArr.splice(bookIdx,1);

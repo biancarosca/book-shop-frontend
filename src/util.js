@@ -38,4 +38,15 @@ export const choosePrice = (edition,paperbackPrice) => {
     return price;
 };
 
+export const getPrice = (book,amount,edition='') => {
+    if(book.cart && book.cart.edition)
+        edition = book.cart.edition; 
+    return book.saleInfo && book.saleInfo.listPrice ? (choosePrice(edition,book.saleInfo.listPrice.amount)*amount).toFixed(2)
+        : (choosePrice(edition,8.99)*amount).toFixed(2)
+}
+
+export const cutDecimals = number =>{
+    return parseFloat(number.toFixed(2));
+}
+
 export default orderAlphabetically;

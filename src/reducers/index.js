@@ -2,7 +2,7 @@ import {combineReducers} from 'redux';
 import {booksReducer,renderedBooks,activeBook,activeEdition} from './booksReducer';
 import {navItemsState,navToggle} from './navReducer';
 import {wishlist} from './wishlistReducer';
-import {shoppingCart} from './cartReducer';
+import {shoppingCart,totalAmount} from './cartReducer';
 
 const rootReducer = combineReducers({
     booksReducer,
@@ -13,6 +13,7 @@ const rootReducer = combineReducers({
     activeEdition,
     wishlist,
     shoppingCart,
+    totalAmount,
 });
 
 export default rootReducer;

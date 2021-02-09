@@ -4,14 +4,15 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from 'react-redux';
 import { StyGlobalHeader, StyScrollBar } from '../components/GlobalStyles';
 import BookListingSummary from '../components/BookListingSummary';
-import { choosePrice } from '../util';
+import { getPrice } from '../util';
 import allActions from '../actions/index';
-import { saveToLS,getFromLS } from '../util';
+import { saveToLS,getFromLS, cutDecimals } from '../util';
 
 const ShoppingCartPage = ({locationChanged,variants}) => {
     const dispatch = useDispatch();
     const navDisplay = useSelector(store => store.navToggle);
     const cart = useSelector(store => store.shoppingCart);
+    const totalPrice = useSelector(store => store.totalAmount);
 
     const updateAmount = (event,edition,increment) => {
         let currentArr = getFromLS("cart");
@@ -23,11 +24,24 @@ const ShoppingCartPage = ({locationChanged,variants}) => {
                          bookIdx = idx;
         });
         let currAmount = currentArr[bookIdx].cart.amount;
+
+        let price = parseFloat(getPrice(currentArr[bookIdx],1));
+        if(increment === -1)
+            price *= -1;
+
+        let currTotal = getFromLS("totalPrice");
+        if(!currTotal)
+            currTotal = 0;
+
         if((increment === -1 && currAmount > 1) || increment === 1){
+            //state
             dispatch(allActions.updateCart(bookIdx,increment));
+            dispatch(allActions.updateTotal(price));
+
             //update local storage
             currentArr[bookIdx].cart.amount += increment;
             saveToLS("cart",currentArr);
+            saveToLS("totalPrice",cutDecimals(currTotal + price));
         }
     }
 
@@ -41,12 +55,13 @@ const ShoppingCartPage = ({locationChanged,variants}) => {
             <CartHeader>
                 <h1>Shopping Cart</h1>
             </CartHeader>
+            <div className="total">
+                <h2 style={totalPrice > 0 ? {borderColor: '#18D47C'} : {}}>Total: {cutDecimals(totalPrice)} $</h2>
+            </div>
             {cart.length ? cart.map(book => 
            <BookListingSummary key={book.id + book.cart.edition} book={book} targetList="cart">
                <p className="edition">Edition: <span>{book.cart.edition.charAt(0).toUpperCase() + book.cart.edition.slice(1)}</span></p>
-               <p className="price">{ book.saleInfo && book.saleInfo.listPrice
-                            ? (choosePrice(book.cart.edition,book.saleInfo.listPrice.amount)*book.cart.amount).toFixed(2)
-                            : (choosePrice(book.cart.edition,8.99)*book.cart.amount).toFixed(2)} $</p>
+               <p className="price">{ getPrice(book,book.cart.amount)} $</p>
                 <span className="amount-control">
                     <button id={book.id} onClick={(event) => updateAmount(event,book.cart.edition,-1)}>-</button>
                     <span>{book.cart.amount}</span>
@@ -81,6 +96,19 @@ const StyledWrapper = motion.custom(styled(StyScrollBar)`
     min-height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
+
+    .total{
+        width: 100%;
+        height: fit-content;
+        display:flex;
+        align-items: center;
+        margin: 1rem 2rem;
+        h2{
+            color:#2B2D30;
+            border-left: 4px solid #2B2D30;
+            padding-left: 1rem;
+        }
+    }
 
     .edition{
         margin-top: 0.5rem;

@@ -6,7 +6,7 @@ import { faHeart as solidHeart} from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
-import {saveToLS,getFromLS} from '../util';
+import { saveToLS,getFromLS, getPrice,cutDecimals } from '../util';
 
 const Btn = ({type,book,origin=''}) => {
     const dispatch = useDispatch();
@@ -33,9 +33,10 @@ const Btn = ({type,book,origin=''}) => {
             }
         });
 
+        //add
         if(bookIdx === -1){
             if(key === 'wishlist')
-                dispatch(allActions.wishlistBook(book));
+            dispatch(allActions.wishlistBook(book));
             else{
                 book.cart = {};
                 book.cart.amount = 0;
@@ -44,14 +45,37 @@ const Btn = ({type,book,origin=''}) => {
             }
             currentArr.push(book);
         }
-        else{
+        
+        //total price update
+        if(key === "cart"){
+            let currTotal = 0;
+            if(getFromLS("totalPrice"))
+                currTotal = getFromLS("totalPrice");
+            let pieces = 1;
+            if(bookIdx !==-1)
+                pieces = currentArr[bookIdx].cart.amount;
+            let price = parseFloat(getPrice(book,pieces,Object.keys(activeEdition)[0]));
+            if(bookIdx !== -1)
+                price *= -1;
+
+            //update state
+            dispatch(allActions.updateTotal(price));
+
+            //update local storage
+            saveToLS("totalPrice",cutDecimals(currTotal + price));
+        }
+
+        //remove
+        if(bookIdx !== -1) {
             currentArr.splice(bookIdx,1);
             if(key === 'wishlist')
-                dispatch(allActions.removeFromWishlist(bookIdx));
-            else
+            dispatch(allActions.removeFromWishlist(bookIdx));
+            else{
                 dispatch(allActions.removeFromCart(bookIdx));
+            }
         }
-       
+        
+
         saveToLS(key,currentArr);
     }
 

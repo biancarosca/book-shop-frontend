@@ -12,3 +12,8 @@ export const updateCart = (bookIdx,increment) => {
     let action = {type: "UPDATE_CART", payload: [bookIdx,increment]};
     return action;
 }
+
+export const updateTotal = price => {
+    let action = {type: "UPDATE_TOTAL",payload: price}
+    return action;
+}

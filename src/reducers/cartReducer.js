@@ -1,4 +1,4 @@
-import { getFromLS } from '../util';
+import { getFromLS, cutDecimals } from '../util';
 
 let cart0 = [];
 if(getFromLS('cart'))
@@ -20,5 +20,18 @@ export const shoppingCart = (state = cart0,action) => {
             }
         default:
             return [...state];
+    }
+}
+
+let price0 = 0;
+if(getFromLS("totalPrice"))
+    price0 = getFromLS("totalPrice");
+
+export const totalAmount = (state=price0,action) => {
+    switch(action.type){
+        case "UPDATE_TOTAL":
+            return cutDecimals(state + action.payload);
+        default:
+            return state;
     }
 }
