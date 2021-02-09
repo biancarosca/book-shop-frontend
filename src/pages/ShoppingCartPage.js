@@ -103,10 +103,16 @@ const StyledWrapper = motion.custom(styled(StyScrollBar)`
         display:flex;
         align-items: center;
         margin: 1rem 2rem;
+        @media (max-width:550px){
+            margin: 1rem 0.5rem;
+        }
         h2{
             color:#2B2D30;
             border-left: 4px solid #2B2D30;
             padding-left: 1rem;
+            @media (max-width:550px){
+                font-size: 1rem;
+            }
         }
     }
 
@@ -114,6 +120,10 @@ const StyledWrapper = motion.custom(styled(StyScrollBar)`
         margin-top: 0.5rem;
         span{
             font-weight: bold;
+        }
+
+        @media (max-width:700px){
+            font-size: smaller;
         }
     }
     .price{

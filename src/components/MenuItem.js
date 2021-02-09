@@ -49,6 +49,13 @@ const StyledLink = styled(Link)`
 const StyledIcon = styled(FontAwesomeIcon)`
     color: #6D7277;
     font-size: 1.2rem;
+
+    @media (max-width:350px){
+        font-size: 1rem;
+    }
+    @media (max-width:325px){
+        font-size: 0.8rem;
+    }
 `
 
 export default MenuItem;

@@ -76,9 +76,18 @@ const StyledNav = styled(motion.nav)`
         span{
             position:absolute;
             left: 1.5rem;
+            width: 30px;
+            display: flex;
+            justify-content: center;
             @media (max-width:540px){
                 left:1rem;
                 }
+            @media (max-width:350px){
+                left:0.4rem;
+            }
+            @media (max-width:325px){
+                left:0;
+            }
         }
     }
     li{
@@ -90,8 +99,11 @@ const StyledNav = styled(motion.nav)`
         align-items: center;
         height: 3rem;
         @media (max-width:540px){
-                text-align:center;
-                }
+            text-align:center;
+        }
+        @media (max-width:350px){
+            height: 2rem;
+        }
         &:hover{
             background-color:#34373A;
             cursor: pointer;
@@ -111,6 +123,9 @@ const StyledNav = styled(motion.nav)`
     .active{
             border-left: 5px solid #18D47C;
             color: #18D47C;
+            @media (max-width:350px){
+                border-left: 2px solid #18D47C;
+            }
         }
     
 `

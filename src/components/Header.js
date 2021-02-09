@@ -25,12 +25,21 @@ const Header = () => {
 }
 
 const StyledIconWrapper = styled.span`
-    width: 30px;
     height: 30px;
-    margin-left: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 30px;
+    position:absolute;
+    left: 1.5rem;
+
+    @media (max-width:540px){
+        left: 1rem;
+    }
+
+    @media (max-width:350px){
+        left: 0.4rem;
+    }
 `
 
 const StyledContainer = styled.div`

@@ -108,6 +108,7 @@ const DetailsBtn = styled(StyBtn)`
         font-size: smaller;
         margin-right: 0.5rem;
         width: 150px;
+        margin-top: 0;
     }
     @media (max-width: 350px){
         margin-top: 0.8rem;
@@ -119,6 +120,21 @@ const StyContent = styled.div`
     height: fit-content;
     display: flex;
     margin: 2rem;
+
+    .btns-container{
+       
+        @media (max-width:700px){
+            .amount-control{
+                display:flex;
+                width: fit-content;
+                margin: 0.5rem;
+                span{
+                    text-align: center;
+                    width: 30px;
+                }
+            }
+        }
+    }
 
     .details-container{
         margin: 0 2rem;
@@ -140,7 +156,7 @@ const StyContent = styled.div`
     }
 
     .book-details{
-
+        z-index: -1;
         h1{
             font-size: 1.3rem;
             color: #2B2D30;

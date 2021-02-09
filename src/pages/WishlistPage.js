@@ -63,7 +63,6 @@ const StyledWrapper = motion.custom(styled(StyScrollBar)`
     min-height: 90vh;
     overflow-y: scroll;
     overflow-x: hidden;
-
 `)
 
 export default WishlistPage;
