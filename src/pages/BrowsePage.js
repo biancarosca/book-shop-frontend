@@ -24,23 +24,25 @@ const BrowsePage= ({locationChanged,variants}) => {
     const renderedBooksObj = useSelector(store => store.renderedBooks);
     const allCategories = Object.keys(allCategoriesObj);
     const navDisplay = useSelector(store => store.navToggle);
+    
+    //when the page is changed and searched books are rendered, clear search
+    useEffect(() => dispatch(allActions.restoreSearch()),[dispatch]);
   
     const searchHandler = (event) => {
         
         if(event.target.value === '')
-            {dispatch(allActions.restoreSearch());
-            }
-         else{
-        allCategories.forEach(category => 
-            {const result = Object.values(allCategoriesObj[category].items)
-              .filter(arr => arr.volumeInfo.title.toLowerCase().includes(event.target.value.toLowerCase()));
-            const foundObj = {...allCategoriesObj[category]}
-            foundObj.items = [...result]
-            foundObj.totalItems = result.length
-            dispatch(allActions.searchUpdate(foundObj,category));
-            }
-            
-            ); 
+            dispatch(allActions.restoreSearch());  
+        else{
+          allCategories.forEach(category => 
+              {const result = Object.values(allCategoriesObj[category].items)
+                .filter(arr => arr.volumeInfo.title.toLowerCase().includes(event.target.value.toLowerCase()));
+              const foundObj = {...allCategoriesObj[category]}
+              foundObj.items = [...result]
+              foundObj.totalItems = result.length
+              dispatch(allActions.searchUpdate(foundObj,category));
+              }
+              
+              ); 
           }
     }
 

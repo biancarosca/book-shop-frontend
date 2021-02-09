@@ -8,6 +8,8 @@ import MenuItem from './MenuItem';
 
 const SideNav = () => {
     const navDisplay = useSelector(store => store.navToggle);
+    const shoppingCart = useSelector(store=> store.shoppingCart);
+
     const variants = {
         close0:{
             display: "block",
@@ -36,7 +38,9 @@ const SideNav = () => {
             <ul>
                 <MenuItem page="browse" />
                 <MenuItem page="wishlist" />
-                <MenuItem page="cart" />
+                <MenuItem page="cart">
+                    {shoppingCart.length ? <span className="tooltip">{shoppingCart.reduce(((acc,book) => acc + book.cart.amount),0)}</span> : <></>}
+                </MenuItem>
                 <MenuItem page="history" />
 
             </ul>

@@ -6,9 +6,10 @@ import allActions from '../actions/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobeEurope, faHeart, faShoppingCart, faHistory} from '@fortawesome/free-solid-svg-icons';
 
-const MenuItem = ({page}) => {
+const MenuItem = ({page,children}) => {
     const dispatch = useDispatch();
     const navState = useSelector(store => store.navItemsState);
+    
     let iconName;
     switch(page){
         case 'browse':
@@ -29,10 +30,11 @@ const MenuItem = ({page}) => {
     return(
     <StyledLink to={page === 'browse' ? '/' : `/${page}`} onClick={() => {dispatch(allActions.toggleActiveState(page))}}>
         <li className={ navState[page] ? "active": ""}>
-            <span>
+            <span className="icon-wrapper">
                 <StyledIcon 
                     style={ navState[page] ? {color: "#18D47C" }: {}} 
                     icon={iconName}/>
+                 {React.Children.toArray(children)[0]}
             </span>
             <p>{page.charAt(0).toUpperCase() + page.slice(1)}</p>
         </li>
@@ -43,7 +45,22 @@ const MenuItem = ({page}) => {
 const StyledLink = styled(Link)`
     text-decoration: none;
     width: 100%;
-    
+    .icon-wrapper{
+        .tooltip{
+            width: 15px;
+            height: fit-content;
+            position:absolute;
+            border-radius: 0.5rem;
+            color: white;
+            bottom: 1rem;
+            left: 1rem;
+            background-color: #b73838;
+            @media (max-width:350px){
+                font-size: 0.8rem;
+                bottom: 0.7rem;
+            }
+        }
+    }
 `
 
 const StyledIcon = styled(FontAwesomeIcon)`
