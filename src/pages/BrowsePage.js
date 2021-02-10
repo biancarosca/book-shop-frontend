@@ -181,6 +181,10 @@ const StyledSpinner = styled.div`
     display:flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width) {
+      left: 0.7rem;
+    }
 .lds-spinner {
     display: inline-block;
     position: relative;

@@ -19,7 +19,7 @@ const CarouselComp = () => {
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
     const allCategories = Object.keys(allCategoriesObj);
     const activeCategory = useSelector(store => store.activeCategory);
-    console.log(allCategoriesObj);
+    
     return(
         <StyWrapper>
             <StyCarousel breakPoints={breakPoints} pagination={false}>
