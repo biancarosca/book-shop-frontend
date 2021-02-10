@@ -50,4 +50,6 @@ export const cutDecimals = number =>{
     return parseFloat(number.toFixed(2));
 }
 
+
+
 export default orderAlphabetically;

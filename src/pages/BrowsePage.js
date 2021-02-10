@@ -34,6 +34,7 @@ const BrowsePage= ({locationChanged,variants}) => {
   
     const searchHandler = (event) => {
         
+        dispatch(allActions.activateCategory('All')); // restore to all books when searching
         if(event.target.value === '')
             dispatch(allActions.restoreSearch());  
         else{
@@ -98,10 +99,6 @@ const BrowsePage= ({locationChanged,variants}) => {
         </StyledWrapper>
     );
 }
-
-// const StyCarousel = styled(CarouselComp)`
-//   height: 50px;
-// `
 
 const StyledMain = styled(StyScrollBar)`
     display: flex;
@@ -176,8 +173,11 @@ const StyledIcon = styled(FontAwesomeIcon)`
 `
 
 const StyledSpinner = styled.div`
-    height: 80vh;
+    height: 100vh;
     width: 100%;
+    position: absolute;
+    top: 0;
+    left:0;
     display:flex;
     justify-content: center;
     align-items: center;

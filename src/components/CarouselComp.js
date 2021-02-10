@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Carousel from 'react-elastic-carousel';
+import Carousel  from 'react-elastic-carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
 
@@ -18,25 +18,25 @@ const CarouselComp = () => {
     const dispatch = useDispatch();
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
     const allCategories = Object.keys(allCategoriesObj);
-    const activeCategory = useSelector(store => store.activeCategory)
-
+    const activeCategory = useSelector(store => store.activeCategory);
+    console.log(allCategoriesObj);
     return(
         <StyWrapper>
-            <StyCarousel breakPoints={breakPoints} itemsToShow={4} pagination={false}>
-                <StyCategory style={activeCategory === 'All' ? {backgroundColor: '#18D47C'} : {} } 
+            <StyCarousel breakPoints={breakPoints} pagination={false}>
+                {Object.keys(allCategoriesObj).length ? <StyCategory style={activeCategory === 'All' ? {backgroundColor: '#18D47C'} : {} } 
                     onClick={() => 
                     {dispatch(allActions.activateCategory('All'))
                     dispatch(allActions.restoreSearch())
                     }}>
                     All
-                </StyCategory>
-                {allCategories && allCategories.map((category,idx) => 
+                </StyCategory> : <></>}
+                {Object.keys(allCategoriesObj).length ? allCategories.map((category,idx) => 
                     <StyCategory style={activeCategory === category ? {backgroundColor: '#18D47C'} : {} } 
                     onClick={() => 
                         {dispatch(allActions.activateCategory(category));
                         dispatch(allActions.renderCategory(allCategoriesObj[category],category))}} key={idx}>{category}
-                    </StyCategory>
-                )}
+                    </StyCategory>): <></>
+                }
             </StyCarousel>
         </StyWrapper>
     );
