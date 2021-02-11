@@ -50,6 +50,7 @@ export const cutDecimals = number =>{
     return parseFloat(number.toFixed(2));
 }
 
+export let categories = ['Biography','Non-fiction','Fiction','Science','Business'];
 
 
 export default orderAlphabetically;

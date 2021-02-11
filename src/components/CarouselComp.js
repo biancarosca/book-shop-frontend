@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Carousel  from 'react-elastic-carousel';
 import { useDispatch, useSelector } from 'react-redux';
 import allActions from '../actions/index';
-
+import { categories } from '../util';
 
 const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -17,26 +17,27 @@ const breakPoints = [
 const CarouselComp = () => {
     const dispatch = useDispatch();
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
-    const allCategories = Object.keys(allCategoriesObj);
+    // const allCategories = Object.keys(allCategoriesObj);
     const activeCategory = useSelector(store => store.activeCategory);
-    
+   
     return(
         <StyWrapper>
             <StyCarousel breakPoints={breakPoints} pagination={false}>
-                {Object.keys(allCategoriesObj).length ? <StyCategory style={activeCategory === 'All' ? {backgroundColor: '#18D47C'} : {} } 
+                {<StyCategory style={activeCategory === 'All' ? {backgroundColor: '#18D47C'} : {} } 
                     onClick={() => 
                     {dispatch(allActions.activateCategory('All'))
                     dispatch(allActions.restoreSearch())
                     }}>
                     All
-                </StyCategory> : <></>}
-                {Object.keys(allCategoriesObj).length ? allCategories.map((category,idx) => 
+                </StyCategory>}
+                {categories.map((category,idx) => 
                     <StyCategory style={activeCategory === category ? {backgroundColor: '#18D47C'} : {} } 
                     onClick={() => 
                         {dispatch(allActions.activateCategory(category));
-                        dispatch(allActions.renderCategory(allCategoriesObj[category],category))}} key={idx}>{category}
-                    </StyCategory>): <></>
-                }
+                        dispatch(allActions.renderCategory(allCategoriesObj[category],category))}} key={idx}>
+                        {category}
+                    </StyCategory>)}
+                
             </StyCarousel>
         </StyWrapper>
     );
