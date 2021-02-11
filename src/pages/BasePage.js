@@ -118,6 +118,9 @@ const BookContainer = styled.div`
     @media (max-width:390px){
         width: 90vw;
     }
+    @media (max-width:350px){
+        width: 100vw;
+    }
 `
 
 const StyledWhiteBox = styled(BookContainer)`

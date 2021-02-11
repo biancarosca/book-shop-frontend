@@ -38,30 +38,25 @@ const BookDetail = ({ book }) => {
                     </h2>
                     {book.saleInfo && <RatingComponent id={book.id} rating={ book.saleInfo.rating} />}
                     <StyDetailWrapper>
-                        {book.volumeInfo &&
+                        <StyLeftCol>
+                            <p>Publisher</p>
+                            <p>Publish date</p>
+                            <p>ISBN-13</p>
+                            <p>Pages</p>
+                        </StyLeftCol>
+                        <StyRightCol>
+                            {book.volumeInfo &&
                             <>
-                            <div className="publisher">
-                                <p className="left-col">Publisher</p>
-                                <p className="right-col">{book.volumeInfo.publisher}</p>
-                            </div>
-                            <div className="publish-date">
-                                <p className="left-col">Publish date</p>
-                                <p className="right-col">{book.volumeInfo.publishedDate}</p>
-                            </div>
-                            <div className="isbn-13">
-                                <p className="left-col">ISBN-13</p>
-                                <p className="right-col">
-                                {book.volumeInfo.industryIdentifiers &&
-                                    book.volumeInfo.industryIdentifiers[0]
-                                        .identifier}
-                                </p>
-                            </div>
-                            <div className="pages">
-                                <p className="left-col">Pages</p>
-                                <p className="right-col">{book.volumeInfo.pageCount}</p>
-                            </div>
+                            <p className="publisher">{book.volumeInfo.publisher}</p>
+                            <p>
+                                {book.volumeInfo.publishedDate}
+                            </p>
+                            <p>
+                                {book.volumeInfo.industryIdentifiers[0].identifier}</p>
+                            <p>{book.volumeInfo.pageCount}</p>
                             </>
-                            }
+                        }
+                        </StyRightCol>
                     </StyDetailWrapper>
                     <StyIconsWrapper>
                         <EditionComponent image={paperback} edition="paperback"/>
@@ -95,6 +90,21 @@ const StyDescriptionWrapper = styled.div`
     }
     margin-top: 3rem;
 `
+
+const StyLeftCol = styled.div`
+	font-weight: bold;
+    p{
+        width:100px;
+    }
+`;
+
+const StyRightCol = styled.div`
+	margin-left: 2rem;
+    .publisher{
+        font-size: smaller;
+        width: fit-content;
+    }
+`;
 
 const StyModalWrapper = styled.div`
     width: 100%;
@@ -138,17 +148,35 @@ const StyledCover = styled.img`
         height: 450px;
     }
 
-    @media (max-width:1120px){
-        width: 250px;
+    @media (max-width:1240px){
+        width: 270px;
+        height: 410px;
+    }
+
+    @media (max-width:1180px){
+        width: 260px;
         height: 400px;
     }
 
-    @media (max-width:1020px){
-        width: 200px;
-        height: 350px;
+    @media (max-width:1150px){
+        width: 230px;
+        height: 370px;
+    }
+    
+
+    @media (max-width:1100px){
+        width: 210px;
+        height: 330px;
+    }
+
+    @media (max-width:1050px){
+        width: 140px;
+        height: 230px;
     }
 
     @media (max-width:950px){
+        width: 230px;
+        height: 370px;
         margin-bottom: 1.5rem;
     }
 `;
@@ -190,26 +218,10 @@ const StyCompleteDetails = styled.div`
 
 const StyDetailWrapper = styled.div`
 	display: flex;
-    flex-direction: column;
 	width: fit-content;
 	height: fit-content;
 	margin-top: 1rem;
 	margin-right: 2rem;
-    width: 100%;
-    .publisher,.publish-date,.isbn-13,.pages {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        margin-right: 1rem;
-        .left-col{
-            margin-right: 1.5rem;
-            width: 150px;
-            font-weight: bold;
-        }
-        .right-col{
-            width:100%;
-        }
-    }
     @media (max-width:1350px){
         p{
             font-size: 0.9rem;
