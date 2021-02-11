@@ -93,17 +93,27 @@ const StyDescriptionWrapper = styled.div`
 
 const StyLeftCol = styled.div`
 	font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     p{
         width:100px;
+        height: 50px;
     }
 `;
 
 const StyRightCol = styled.div`
 	margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    p{
+        height: 50px;
+    }
     .publisher{
-        font-size: smaller;
         width: fit-content;
     }
+    
 `;
 
 const StyModalWrapper = styled.div`
@@ -231,6 +241,13 @@ const StyDetailWrapper = styled.div`
     @media (max-width:950px){
         p{
             font-size: 1rem;
+        }
+    }
+
+    @media (max-width:570px){
+        p{
+            font-size: 0.8rem;
+            line-height: 0.7rem;
         }
     }
 `;

@@ -111,8 +111,12 @@ const BookContainer = styled.div`
     margin: auto;
     z-index:2;
 
-    @media (max-width:650px){
+    @media (max-width:750px){
         width: 80vw;
+    }
+
+    @media (max-width:650px){
+        width: 85vw;
     }
 
     @media (max-width:390px){
