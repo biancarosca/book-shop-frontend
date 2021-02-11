@@ -77,7 +77,7 @@ const BrowsePage= ({locationChanged,variants}) => {
             {Object.keys(renderedBooksObj).length ? allCategories.map(category => 
                 renderedBooksObj[category] && renderedBooksObj[category].items.map(book => 
                 <Book 
-                language={book.volumeInfo.language}
+                rating={book.saleInfo.rating}
                 title ={book.volumeInfo.title} 
                 image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
                 authors={book.volumeInfo.authors}
@@ -87,7 +87,7 @@ const BrowsePage= ({locationChanged,variants}) => {
                 )) : allCategories.length && Object.keys(allCategoriesObj) ?  allCategories.map(category => 
                 allCategoriesObj[category].items.map(book => 
                 <Book 
-                language={book.volumeInfo.language}
+                rating={book.saleInfo.rating}
                 title ={book.volumeInfo.title} 
                 image={book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.thumbnail} 
                 authors={book.volumeInfo.authors}

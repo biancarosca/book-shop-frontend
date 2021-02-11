@@ -1,7 +1,7 @@
 import axios from 'axios';
-import orderAlphabetically, {saveToLS}  from '../util';
+import orderAlphabetically,{saveToLS}  from '../util';
 
-let categories = ['Cooking','Psychology','Science','Self-Help','Fiction','History','Travel','Education','Art','Mathematics','Poetry','Philosophy'];
+let categories = ['Biography','Non-fiction','Fiction','Science','Business'];
 
 export const loadBooks = () => async dispatch => {
 
@@ -9,8 +9,9 @@ export const loadBooks = () => async dispatch => {
     categories = orderAlphabetically(categories); 
     let arrOfBooks = [];
     for(let category of categories) {
-    const results = await axios.get(`https://www.googleapis.com/books/v1/volumes?q=+subject:${category}&maxResults=10&country=US`);
+    const results = await axios.get(`https://mock-rest-api-book-shop.herokuapp.com/${category}`);
     arrOfBooks.push(...results.data.items);
+    
     action = {...action, ...action.payload}
     action.payload[`${category}`] = results.data;
     };

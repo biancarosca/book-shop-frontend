@@ -65,7 +65,7 @@ const BookListingSummary = ({book,children,targetList=''}) =>{
                         <div className="book-details">
                             <h1>{book.volumeInfo.title}</h1>
                             {book.volumeInfo && book.volumeInfo.authors.map((author,idx) => <h3 key={idx}>{author}</h3>)}
-                            <RatingComponent id={book.id} />
+                            <RatingComponent id={book.id} rating={book.saleInfo.rating} />
                             {React.Children.toArray(children)[0]}
                             {React.Children.toArray(children)[1]}
                         </div>

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import Rating from '@material-ui/lab/Rating';
 import { withStyles } from '@material-ui/core/styles';
 
-const RatingComponent = ({id}) => {
+const RatingComponent = ({id,rating}) => {
     return(
         <StyledRevsBox id={id}>
-            <StyledRating id={id} name="read-only" value={4.3} precision={0.5} readOnly />
-            <span id={id} className="numRev">(14)</span>
+            <StyledRating id={id} name="read-only" value={rating && rating.average} precision={0.1} readOnly />
+            <span id={id} className="numRev">{rating && rating.average} ({rating && rating.numberOfRatings})</span>
         </StyledRevsBox>
     );
 }

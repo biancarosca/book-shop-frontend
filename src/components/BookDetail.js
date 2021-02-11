@@ -9,10 +9,11 @@ import EditionComponent from './EditionComponent';
 import RatingComponent from './RatingComponent';
 import Btn from './Btn';
 import { choosePrice } from '../util';
+import { v4 as uuidv4 } from 'uuid';
 
 const BookDetail = ({ book }) => {
     const activeEdition = useSelector(store => store.activeEdition);
-    
+  
 	return (
         <StyModalWrapper>
             <StyContainer>
@@ -35,28 +36,32 @@ const BookDetail = ({ book }) => {
                             : choosePrice(Object.keys(activeEdition)[0],8.99)}
                         $
                     </h2>
-                    <RatingComponent id={book.id} />
+                    {book.saleInfo && <RatingComponent id={book.id} rating={ book.saleInfo.rating} />}
                     <StyDetailWrapper>
-                        <StyLeftCol>
-                            <p>Genre</p>
-                            <p>Publisher</p>
-                            <p>First publish</p>
-                            <p>ISBN-13</p>
-                            <p>Pages</p>
-                        </StyLeftCol>
-                        <StyRightCol>
-                            <p>{book.volumeInfo && book.volumeInfo.categories}</p>
-                            <p>{book.volumeInfo && book.volumeInfo.publisher}</p>
-                            <p>
-                                {book.volumeInfo && book.volumeInfo.publishedDate}
-                            </p>
-                            <p>
-                                {(book.volumeInfo && book.volumeInfo.industryIdentifiers) &&
+                        {book.volumeInfo &&
+                            <>
+                            <div className="publisher">
+                                <p className="left-col">Publisher</p>
+                                <p className="right-col">{book.volumeInfo.publisher}</p>
+                            </div>
+                            <div className="publish-date">
+                                <p className="left-col">Publish date</p>
+                                <p className="right-col">{book.volumeInfo.publishedDate}</p>
+                            </div>
+                            <div className="isbn-13">
+                                <p className="left-col">ISBN-13</p>
+                                <p className="right-col">
+                                {book.volumeInfo.industryIdentifiers &&
                                     book.volumeInfo.industryIdentifiers[0]
                                         .identifier}
-                            </p>
-                            <p>{book.volumeInfo && book.volumeInfo.pageCount}</p>
-                        </StyRightCol>
+                                </p>
+                            </div>
+                            <div className="pages">
+                                <p className="left-col">Pages</p>
+                                <p className="right-col">{book.volumeInfo.pageCount}</p>
+                            </div>
+                            </>
+                            }
                     </StyDetailWrapper>
                     <StyIconsWrapper>
                         <EditionComponent image={paperback} edition="paperback"/>
@@ -69,7 +74,7 @@ const BookDetail = ({ book }) => {
             </StyContainer>
             <StyDescriptionWrapper>
                 <p className="title">Description</p>
-                <p className="description-text">{book.volumeInfo && book.volumeInfo.description}</p> 
+                {book.volumeInfo ? book.volumeInfo.description.map(para => <p className="description-text" key={uuidv4()}>{para}</p>) : ''} 
             </StyDescriptionWrapper>
         </StyModalWrapper> )
     
@@ -182,20 +187,29 @@ const StyCompleteDetails = styled.div`
     }
 `;
 
-const StyLeftCol = styled.div`
-	font-weight: bold;
-`;
-
-const StyRightCol = styled.div`
-	margin-left: 2rem;
-`;
 
 const StyDetailWrapper = styled.div`
 	display: flex;
+    flex-direction: column;
 	width: fit-content;
 	height: fit-content;
 	margin-top: 1rem;
 	margin-right: 2rem;
+    width: 100%;
+    .publisher,.publish-date,.isbn-13,.pages {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-right: 1rem;
+        .left-col{
+            margin-right: 1.5rem;
+            width: 150px;
+            font-weight: bold;
+        }
+        .right-col{
+            width:100%;
+        }
+    }
     @media (max-width:1350px){
         p{
             font-size: 0.9rem;

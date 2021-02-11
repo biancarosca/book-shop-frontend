@@ -4,7 +4,7 @@ import { useDispatch, useSelector} from 'react-redux';
 import allActions from '../actions/index';
 import RatingComponent from './RatingComponent';
 
-const Book = ({language,title,image,authors,id}) => {
+const Book = ({rating,title,image,authors,id}) => {
     const dispatch = useDispatch();
     const allCategoriesObj = useSelector(store =>  store.booksReducer );
     
@@ -21,14 +21,13 @@ const Book = ({language,title,image,authors,id}) => {
 
     return(
         <>
-            {language === 'en' &&
             <StyledContainer id={id} onClick = {openBookDetail}>
                 <StyledImg id={id} src={image} alt={title}></StyledImg>
                 <StyledTitle id={id}>{title.length > 20 ? `${title.slice(0,20)}...` : title}</StyledTitle> 
                 {authors && (authors.length > 1 ? <StyledAuthor id={id} >{authors[0]}...</StyledAuthor> : <StyledAuthor id={id}>{authors[0]}</StyledAuthor> )}
-                <RatingComponent id={id} />
+                <RatingComponent id={id} rating={rating} />
             </StyledContainer>
-            }   
+             
         </>
     );
 }
